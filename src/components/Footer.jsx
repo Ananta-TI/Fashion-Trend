@@ -10,9 +10,15 @@ export default function Footer() {
         <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-[1.2fr_0.8fr_0.8fr]">
           <div>
             <div className="flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#1f1f1f] text-white">
-                <Brain size={18} />
-              </div>
+              <img
+              src="/logo.png"
+              alt="FashionTrend"
+              className="h-9 w-9 object-contain drop-shadow-[0_12px_30px_rgba(250,82,15,0.28)] md:h-10 md:w-10 lg:h-9 lg:w-9"
+              draggable="false"
+              onError={(e) => {
+                e.currentTarget.style.display = "none";
+              }}
+            />
 
               <div>
                 <p className="font-semibold text-[#1f1f1f]">
