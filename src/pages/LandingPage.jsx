@@ -1,27 +1,29 @@
 import { Link } from "react-router-dom";
 import {
   motion,
+  useAnimationFrame,
+  useMotionValue,
   useScroll,
   useSpring,
   useTransform,
-  useMotionValue,
-  useAnimationFrame,
 } from "framer-motion";
 import {
+  Activity,
+  ArrowUpRight,
+  BarChart3,
+  Boxes,
   Brain,
+  Code2,
+  Cpu,
+  Database,
   ImageUp,
+  Layers3,
   LineChart,
   ScanSearch,
-  Shirt,
-  BarChart3,
-  UploadCloud,
-  Activity,
-  Database,
-  Code2,
-  Layers3,
-  Boxes,
-  Cpu,
   ShieldCheck,
+  Shirt,
+  Sparkles,
+  UploadCloud,
 } from "lucide-react";
 import { useEffect, useRef } from "react";
 import Footer from "../components/Footer";
@@ -72,13 +74,55 @@ function PixelLogo({ className = "w-9" }) {
   );
 }
 
+function SectionKicker({ children }) {
+  return (
+    <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.22em] text-[#fa520f] sm:text-xs">
+      {children}
+    </p>
+  );
+}
+
+function ActionLink({ to, href, variant = "dark", children, className }) {
+  const baseClass = cx(
+    "group inline-flex items-center justify-center gap-2 border px-5 py-3 text-sm font-semibold transition duration-300",
+    variant === "dark" &&
+      "border-[#111] bg-[#111] text-white hover:border-[#fa520f] hover:bg-[#fa520f]",
+    variant === "light" &&
+      "border-[#111]/10 bg-[#fbfaf5] text-[#111] hover:bg-[#f1eee5]",
+    variant === "ghost" &&
+      "border-[#111]/10 bg-transparent text-[#111] hover:bg-[#111] hover:text-white",
+    className
+  );
+
+  const content = (
+    <>
+      <span>{children}</span>
+      <PixelArrow className="size-4 transition duration-300 group-hover:translate-x-1" />
+    </>
+  );
+
+  if (href) {
+    return (
+      <a href={href} className={baseClass}>
+        {content}
+      </a>
+    );
+  }
+
+  return (
+    <Link to={to} className={baseClass}>
+      {content}
+    </Link>
+  );
+}
+
 function PixelMosaic() {
   const patterns = [
     [
-      "#ff4d13", "#ff4d13", "#ff4d13", "#e91408", "#c7002a", "#ff4d13", "#ff8508", "#e91408",
-      "#ff4d13", "#ff4d13", "#ff8508", "#c7002a", "#e91408", "#c7002a", "#c7002a", "#ff4d13",
-      "#ff4d13", "#ff4d13", "#e91408", "#ff4d13", "#c7002a", "#ff4d13", "#e91408", "#ff4d13",
-      "#ff4d13", "#c7002a", "#c7002a", "#e91408", "#ff4d13", "#c7002a", "#ff8508", "#e91408",
+      "#ff4d13", "#ff4d13", "#ff8508", "#e91408", "#c7002a", "#ff4d13", "#ff8508", "#e91408",
+      "#ff4d13", "#ff8508", "#ff4d13", "#c7002a", "#e91408", "#c7002a", "#ff4d13", "#ff8508",
+      "#ff8508", "#ff4d13", "#e91408", "#ff4d13", "#c7002a", "#ff8508", "#e91408", "#ff4d13",
+      "#ff4d13", "#c7002a", "#ff8508", "#e91408", "#ff4d13", "#c7002a", "#ff8508", "#e91408",
     ],
     [
       "#e91408", "#ff4d13", "#c7002a", "#ff4d13", "#ff8508", "#e91408", "#ff4d13", "#c7002a",
@@ -101,10 +145,10 @@ function PixelMosaic() {
   ];
 
   const dots = [
-    "left-[20%] top-[26%]",
+    "left-[18%] top-[24%]",
     "right-[20%] top-[26%]",
-    "bottom-[24%] left-[20%]",
-    "bottom-[24%] right-[20%]",
+    "bottom-[22%] left-[20%]",
+    "bottom-[24%] right-[18%]",
   ];
 
   return (
@@ -114,54 +158,43 @@ function PixelMosaic() {
           <motion.div
             key={index}
             className="border-b border-r border-black/10"
-            animate={{
-              backgroundColor: patterns.map((pattern) => pattern[index]),
-            }}
+            animate={{ backgroundColor: patterns.map((pattern) => pattern[index]) }}
             transition={{
-              duration: 5.5,
+              duration: 4.8,
               repeat: Infinity,
-              ease: "steps(1, end)",
-              times: [0, 0.25, 0.5, 0.75],
-              delay: (index % 8) * 0.06 + Math.floor(index / 8) * 0.08,
+              ease: "linear",
+              times: [0, 0.33, 0.66, 1],
+              delay: (index % 8) * 0.055 + Math.floor(index / 8) * 0.075,
             }}
           />
         ))}
       </div>
 
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.24),transparent_28%),radial-gradient(circle_at_80%_70%,rgba(0,0,0,0.16),transparent_26%)]" />
+
       <motion.div
-        className="absolute left-[18%] top-[67%] font-mono text-[10px] font-bold uppercase tracking-[0.12em] text-black"
-        animate={{ opacity: [1, 0.72, 1] }}
-        transition={{
-          duration: 2.8,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
+        className="absolute left-[14%] top-[64%] font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-black"
+        animate={{ opacity: [1, 0.55, 1], y: [0, -2, 0] }}
+        transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
       >
-        Frontier AI
+        Fashion AI
       </motion.div>
 
       <motion.div
-        className="absolute right-[12%] top-[28%] font-mono text-[10px] font-bold uppercase tracking-[0.12em] text-black"
-        animate={{ opacity: [1, 0.72, 1] }}
-        transition={{
-          duration: 3.2,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
+        className="absolute right-[10%] top-[27%] font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-black"
+        animate={{ opacity: [1, 0.58, 1], y: [0, 2, 0] }}
+        transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
       >
-        In your hands
+        Trend engine
       </motion.div>
 
       {dots.map((position, index) => (
         <motion.div
           key={position}
           className={`absolute h-1.5 w-1.5 bg-black ${position}`}
-          animate={{
-            opacity: [1, 0.35, 1],
-            scale: [1, 1.4, 1],
-          }}
+          animate={{ opacity: [1, 0.32, 1], scale: [1, 1.55, 1] }}
           transition={{
-            duration: 2.2,
+            duration: 2.25,
             repeat: Infinity,
             ease: "easeInOut",
             delay: index * 0.25,
@@ -170,24 +203,22 @@ function PixelMosaic() {
       ))}
 
       <motion.div
-        className="absolute bottom-4 right-10"
-        animate={{ opacity: [1, 0.85, 1] }}
-        transition={{
-          duration: 3.5,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
+        className="absolute bottom-5 right-9"
+        animate={{ opacity: [1, 0.86, 1], rotate: [0, -1, 0] }}
+        transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
       >
-        <PixelLogo className="w-14 drop-shadow-[8px_8px_0_rgba(0,0,0,0.35)]" />
+        <PixelLogo className="w-16 drop-shadow-[8px_8px_0_rgba(0,0,0,0.36)]" />
       </motion.div>
     </div>
   );
 }
 
 function MiniFeaturedNews() {
+  const items = ["Upload image", "CNN predicts", "Trend insight"];
+
   return (
     <div className="flex h-full flex-col justify-between bg-[#fbfaf5] px-8 py-8 xl:px-9 xl:py-9">
-      <div className="space-y-2 font-mono text-lg leading-none text-black/25">
+      <div className="space-y-1 font-mono text-xl leading-none text-black/25">
         <p>↓</p>
         <p>↓</p>
         <p>↓</p>
@@ -195,30 +226,33 @@ function MiniFeaturedNews() {
 
       <div>
         <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.18em] text-black/55">
-          Featured news
+          Featured flow
         </p>
 
-        <div className="grid h-[72px] grid-cols-[72px_1fr_38px] border border-[#111]/10 bg-[#fbfaf5]">
-          <div className="flex items-end bg-[#ff4d13] p-2">
-            <p className="font-mono text-[8px] uppercase leading-tight text-white/70">
-              Fashion
-              <br />
-              AI
+        <div className="grid h-[86px] grid-cols-[86px_1fr_42px] border border-[#111]/10 bg-[#fbfaf5]">
+          <div className="flex items-end bg-[#ff4d13] p-2.5">
+            <p className="font-mono text-[8px] uppercase leading-tight text-white/75">
+              Visual
               <br />
               Trend
+              <br />
+              AI
             </p>
           </div>
 
-          <div className="flex items-center px-4">
-            <p className="text-[15px] font-semibold text-[#111]">
-              FashionTrend gets to work.
-            </p>
+          <div className="flex flex-col justify-center px-4">
+            {items.map((item) => (
+              <p key={item} className="text-[13px] font-semibold leading-5 text-[#111]">
+                {item}
+              </p>
+            ))}
           </div>
 
           <div className="grid border-l border-[#111]/10">
             <button
               type="button"
               className="grid place-items-center border-b border-[#111]/10 transition hover:bg-[#f1eee5]"
+              aria-label="Next featured flow"
             >
               <PixelArrow className="size-4" />
             </button>
@@ -226,6 +260,7 @@ function MiniFeaturedNews() {
             <button
               type="button"
               className="grid place-items-center transition hover:bg-[#f1eee5]"
+              aria-label="Previous featured flow"
             >
               <PixelArrow className="size-4 rotate-180" />
             </button>
@@ -252,57 +287,50 @@ function MistralScrollSequence() {
 
   const panelWidth = useTransform(p, [0.02, 0.42], ["33.333%", "100%"]);
   const textScale = useTransform(p, [0.02, 0.42], [0.48, 1]);
-
-  const headlineY = useTransform(p, [0.02, 0.42], [0, -402]);
+  const headlineY = useTransform(p, [0.02, 0.42], [0, -420]);
   const mosaicScale = useTransform(p, [0.02, 0.42], [1, 0]);
-
-  const newsOpacity = useTransform(p, [0.02, 0.08], [1, 0]);
-  const newsX = useTransform(p, [0.02, 0.28], [0, -38]);
+  const mosaicOpacity = useTransform(p, [0.02, 0.34, 0.42], [1, 1, 0]);
+  const newsOpacity = useTransform(p, [0.02, 0.1], [1, 0]);
+  const newsX = useTransform(p, [0.02, 0.28], [0, -42]);
   const newsY = useTransform(p, [0.02, 0.28], [0, 54]);
-
   const leftOpacity = useTransform(p, [0.02, 0.38, 0.42], [1, 1, 0.95]);
-
   const iconOpacity = useTransform(p, [0.3, 0.42], [0, 1]);
   const iconY = useTransform(p, [0.3, 0.42], [18, 0]);
 
   return (
-    <section
-      ref={wrapRef}
-      className="relative h-[220vh] bg-[#fbfaf5] text-[#111]"
-    >
+    <section ref={wrapRef} className="relative h-[220vh] bg-[#fbfaf5] text-[#111]">
       <div className="sticky top-0 h-screen w-full overflow-hidden bg-[#fbfaf5]">
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(17,17,17,0.055)_1px,transparent_1px),linear-gradient(to_bottom,rgba(17,17,17,0.045)_1px,transparent_1px)] bg-[size:72px_72px] opacity-70" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#fbfaf5] to-transparent" />
+
         <div className="relative z-10 flex h-full flex-col justify-center gap-7 px-5 py-24 lg:hidden">
-          <div className="inline-flex w-fit items-center gap-2 border border-[#111]/10 bg-white/50 px-3 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-[#fa520f]">
+          <div className="inline-flex w-fit items-center gap-2 border border-[#111]/10 bg-white/60 px-3 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-[#fa520f] shadow-[6px_6px_0_rgba(17,17,17,0.06)]">
             <PixelLogo className="w-6" />
             FashionTrend AI
           </div>
 
-          <h1 className="font-sans text-[52px] font-semibold leading-[0.95] tracking-[-3px] sm:text-[76px]">
-            Prediksi tren.
+          <h1 className="max-w-[760px] font-sans text-[50px] font-semibold leading-[0.92] tracking-[-3px] text-[#050505] sm:text-[76px]">
+            Fashion intelligence.
             <br />
-            Dari satu gambar.
+            Dalam satu gambar.
           </h1>
 
-          <p className="max-w-lg text-base leading-7 text-[#414141]">
-            Upload gambar produk fashion. Sistem membaca kategori, confidence
-            score, trend score, dan status tren langsung di browser.
+          <p className="max-w-xl text-base leading-7 text-[#414141]">
+            Upload gambar produk fashion. Sistem membaca kategori, confidence score,
+            trend score, dan status tren langsung dari browser.
           </p>
 
           <div className="flex flex-col gap-3 sm:flex-row">
-            <Link
-              to="/predict"
-              className="inline-flex items-center justify-center gap-2 bg-[#111] px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-[#fa520f]"
-            >
-              Mulai Prediksi
-              <PixelArrow className="size-4" />
-            </Link>
-
-            <a
-              href="#workflow"
-              className="inline-flex items-center justify-center border border-[#111]/10 bg-white/60 px-6 py-3.5 text-sm font-semibold transition hover:bg-[#f1eee5]"
-            >
+            <ActionLink to="/predict">Mulai Prediksi</ActionLink>
+            <ActionLink href="#workflow" variant="light">
               Lihat Alur
-            </a>
+            </ActionLink>
+          </div>
+
+          <div className="mt-6 overflow-hidden border border-[#111]/10 shadow-[10px_10px_0_rgba(17,17,17,0.06)]">
+            <div className="h-64">
+              <PixelMosaic />
+            </div>
           </div>
         </div>
 
@@ -312,19 +340,23 @@ function MistralScrollSequence() {
               style={{ opacity: leftOpacity }}
               className="absolute bottom-0 left-0 top-0 z-10 flex w-[66.666%] flex-col border-r border-[#111]/10"
             >
-              <div className="flex h-[60%] flex-col justify-center overflow-hidden border-b border-[#111]/10 px-12 pb-10 xl:px-16 2xl:px-20">
-                <motion.h1
-                  style={{ y: headlineY }}
-                  className="font-sans text-[82px] font-semibold leading-[1.02] tracking-[-5px] text-[#050505] xl:text-[98px] 2xl:text-[112px]"
-                >
-                  Prediksi tren.
-                  <br />
-                  Dari satu gambar.
-                </motion.h1>
+              <div className="flex h-[60%] flex-col justify-center overflow-hidden border-b border-[#111]/10 px-12 pb-8 xl:px-16 2xl:px-20">
+                <motion.div style={{ y: headlineY }} className="will-change-transform">
+                  <div className="mb-8 inline-flex items-center gap-2 border border-[#111]/10 bg-[#fbfaf5] px-3 py-2 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-[#fa520f]">
+                    <Sparkles size={14} />
+                    Product vision system
+                  </div>
+
+                  <h1 className="font-sans text-[82px] font-semibold leading-[1.02] tracking-[-5px] text-[#050505] xl:text-[98px] 2xl:text-[112px]">
+                    Fashion intelligence.
+                    <br />
+                    Dalam satu gambar.
+                  </h1>
+                </motion.div>
               </div>
 
               <motion.div
-                style={{ scale: mosaicScale }}
+                style={{ scale: mosaicScale, opacity: mosaicOpacity }}
                 className="relative h-[40%] origin-top-left will-change-transform"
               >
                 <PixelMosaic />
@@ -351,19 +383,16 @@ function MistralScrollSequence() {
                     ].map(({ Icon, label }) => (
                       <div
                         key={label}
-                        className="flex size-12 place-items-center justify-center overflow-hidden border border-[#111]/10 bg-white/50 xl:size-14"
+                        className="flex size-12 items-center justify-center overflow-hidden border border-[#111]/10 bg-white/60 shadow-[6px_6px_0_rgba(17,17,17,0.05)] xl:size-14"
+                        title={label}
                       >
-                        <Icon
-                          size={24}
-                          strokeWidth={1.7}
-                          className="text-[#111]"
-                        />
+                        <Icon size={24} strokeWidth={1.7} className="text-[#111]" />
                       </div>
                     ))}
                   </motion.div>
 
-                  <div className="max-w-[1000px]">
-                    <p className="whitespace-nowrap font-sans text-[44px] font-medium leading-[0.98] tracking-[-2px] text-[#111] xl:text-[56px] 2xl:text-[68px]">
+                  <div className="max-w-[1100px]">
+                    <p className="whitespace-nowrap font-sans text-[44px] font-medium leading-[0.98] tracking-[-2px] text-[#111] xl:text-[56px] 2xl:text-[70px]">
                       Kami bantu membaca
                       <br />
                       tren fashion dari
@@ -375,11 +404,7 @@ function MistralScrollSequence() {
               </div>
 
               <motion.div
-                style={{
-                  opacity: newsOpacity,
-                  x: newsX,
-                  y: newsY,
-                }}
+                style={{ opacity: newsOpacity, x: newsX, y: newsY }}
                 className="pointer-events-auto absolute bottom-0 left-0 h-[40%] w-full overflow-hidden border-t border-[#111]/10 bg-[#fbfaf5] will-change-transform"
               >
                 <MiniFeaturedNews />
@@ -399,23 +424,16 @@ function InfiniteLogoMarquee({ items }) {
   const lastScrollRef = useRef(0);
   const isDraggingRef = useRef(false);
   const x = useMotionValue(0);
-
   const { scrollY } = useScroll();
 
   const normalizeX = (value) => {
     const loopWidth = loopWidthRef.current;
-
     if (!loopWidth) return value;
 
     let nextValue = value;
 
-    while (nextValue <= -loopWidth) {
-      nextValue += loopWidth;
-    }
-
-    while (nextValue >= 0) {
-      nextValue -= loopWidth;
-    }
+    while (nextValue <= -loopWidth) nextValue += loopWidth;
+    while (nextValue > 0) nextValue -= loopWidth;
 
     return nextValue;
   };
@@ -431,9 +449,7 @@ function InfiniteLogoMarquee({ items }) {
     measure();
     window.addEventListener("resize", measure);
 
-    return () => {
-      window.removeEventListener("resize", measure);
-    };
+    return () => window.removeEventListener("resize", measure);
   }, [items, x]);
 
   useEffect(() => {
@@ -451,7 +467,6 @@ function InfiniteLogoMarquee({ items }) {
 
   useAnimationFrame((_, delta) => {
     const loopWidth = loopWidthRef.current;
-
     if (!loopWidth || isDraggingRef.current) return;
 
     const speed = delta * 0.045;
@@ -460,7 +475,7 @@ function InfiniteLogoMarquee({ items }) {
     x.set(nextX);
   });
 
-  const repeatedItems = [...items, ...items, ...items];
+  const repeatedItems = [...items, ...items];
 
   return (
     <div
@@ -524,9 +539,18 @@ function FeaturedNewsSection() {
   ];
 
   const newsItems = [
-    "Image upload becomes structured AI input.",
-    "Confidence score makes predictions readable.",
-    "Trend score maps category output to product insight.",
+    {
+      title: "Image upload becomes structured AI input.",
+      label: "Input",
+    },
+    {
+      title: "Confidence score makes model output readable.",
+      label: "Prediction",
+    },
+    {
+      title: "Trend score turns category into product insight.",
+      label: "Insight",
+    },
   ];
 
   return (
@@ -534,27 +558,30 @@ function FeaturedNewsSection() {
       <div className="mx-auto max-w-[1728px] border-x border-[#111]/10">
         <div className="grid border-b border-[#111]/10 lg:grid-cols-[220px_1fr]">
           <div className="border-b border-[#111]/10 px-5 py-5 lg:border-b-0 lg:border-r lg:px-6">
-            <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-[#fa520f]">
-              Featured news
-            </p>
+            <SectionKicker>Featured news</SectionKicker>
           </div>
 
           <div className="grid lg:grid-cols-3">
             {newsItems.map((item) => (
               <a
-                key={item}
+                key={item.title}
                 href="#workflow"
-                className="group flex min-h-36 flex-col justify-between border-b border-r border-[#111]/10 p-5 transition hover:bg-[#f1eee5] lg:border-b-0 lg:p-6"
+                className="group flex min-h-40 flex-col justify-between border-b border-r border-[#111]/10 p-5 transition duration-300 hover:bg-[#f1eee5] lg:border-b-0 lg:p-6"
               >
-                <h3 className="max-w-lg font-sans text-[26px] font-semibold leading-[1.05] tracking-[-1px] text-[#111]">
-                  {item}
-                </h3>
+                <div>
+                  <p className="mb-5 font-mono text-[10px] uppercase tracking-[0.18em] text-[#fa520f]">
+                    {item.label}
+                  </p>
+                  <h3 className="max-w-lg font-sans text-[26px] font-semibold leading-[1.05] tracking-[-1px] text-[#111] xl:text-[30px]">
+                    {item.title}
+                  </h3>
+                </div>
 
                 <div className="mt-8 flex items-center justify-between">
                   <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-[#fa520f]">
                     Read more
                   </span>
-                  <PixelArrow className="size-4 transition group-hover:translate-x-1" />
+                  <PixelArrow className="size-4 transition duration-300 group-hover:translate-x-1" />
                 </div>
               </a>
             ))}
@@ -563,26 +590,24 @@ function FeaturedNewsSection() {
 
         <InfiniteLogoMarquee items={logos} />
 
-        <div id="workflow" className="grid lg:grid-cols-[1.05fr_0.95fr]">
-          <div className="min-h-[500px] border-b border-[#111]/10 p-5 lg:border-b-0 lg:border-r lg:p-8 xl:p-10">
+        <div id="workflow" className="grid scroll-mt-16 lg:grid-cols-[1.05fr_0.95fr]">
+          <div className="min-h-[520px] border-b border-[#111]/10 p-5 lg:border-b-0 lg:border-r lg:p-8 xl:p-10">
             <div className="flex h-full flex-col justify-between">
               <div>
-                <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-[#fa520f]">
-                  FashionTrend workflow
-                </p>
+                <SectionKicker>FashionTrend workflow</SectionKicker>
 
                 <h2 className="mt-8 max-w-4xl font-sans text-[52px] font-semibold leading-[0.95] tracking-[-3px] text-[#111] sm:text-6xl xl:text-[86px]">
                   From image to product intelligence.
                 </h2>
               </div>
 
-              <Link
-                to="/predict"
-                className="mt-10 inline-flex w-fit items-center gap-2 bg-[#111] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#fa520f]"
-              >
-                Start analysing
-                <PixelArrow className="size-4" />
-              </Link>
+              <div className="mt-10 max-w-xl space-y-5">
+                <p className="text-base leading-8 text-[#3d3d3d]">
+                  Alur dibuat jelas: gambar masuk, model membaca, hasil diringkas menjadi insight.
+                  Tidak perlu membuat user menebak isi kepala developer, sebuah tradisi web app yang sayangnya masih hidup.
+                </p>
+                <ActionLink to="/predict">Start analysing</ActionLink>
+              </div>
             </div>
           </div>
 
@@ -608,31 +633,37 @@ function FeaturedNewsSection() {
                 desc: "Confidence dan trend score ditampilkan.",
                 icon: Activity,
               },
-            ].map((item, index) => (
-              <div
-                key={item.title}
-                className={cx(
-                  "min-h-[250px] border-[#111]/10 bg-[#fffbef] p-6",
-                  index % 2 === 0 && "sm:border-r",
-                  index < 2 && "border-b",
-                  index >= 2 && "border-b sm:border-b-0"
-                )}
-              >
-                <item.icon
-                  size={26}
-                  strokeWidth={1.8}
-                  className="text-[#fa520f]"
-                />
+            ].map((item, index) => {
+              const Icon = item.icon;
 
-                <h3 className="mt-8 font-sans text-4xl font-semibold leading-none tracking-[-1px] text-[#111]">
-                  {item.title}
-                </h3>
+              return (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, y: 28 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-15% 0px" }}
+                  transition={{ duration: 0.45, delay: index * 0.06 }}
+                  className={cx(
+                    "group min-h-[260px] border-[#111]/10 bg-[#fffbef] p-6 transition duration-300 hover:bg-[#f1eee5]",
+                    index % 2 === 0 && "sm:border-r",
+                    index < 2 && "border-b",
+                    index >= 2 && "border-b sm:border-b-0"
+                  )}
+                >
+                  <div className="grid size-12 place-items-center bg-[#fa520f] text-white transition duration-300 group-hover:bg-[#111]">
+                    <Icon size={24} strokeWidth={1.8} />
+                  </div>
 
-                <p className="mt-4 max-w-sm text-sm leading-7 text-[#4a4a4a]">
-                  {item.desc}
-                </p>
-              </div>
-            ))}
+                  <h3 className="mt-8 font-sans text-4xl font-semibold leading-none tracking-[-1px] text-[#111]">
+                    {item.title}
+                  </h3>
+
+                  <p className="mt-4 max-w-sm text-sm leading-7 text-[#4a4a4a]">
+                    {item.desc}
+                  </p>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -684,13 +715,7 @@ const productSuiteItems = [
     image:
       "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=1800&q=85",
     imageAlt: "Fashion portrait for style analysis",
-    tags: [
-      "Category output",
-      "Confidence reading",
-      "Trend status",
-      "Readable result",
-      "Decision support",
-    ],
+    tags: ["Category output", "Confidence reading", "Trend status", "Readable result", "Decision support"],
   },
   {
     id: "model-control",
@@ -701,30 +726,18 @@ const productSuiteItems = [
     image:
       "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1800&q=85",
     imageAlt: "Technology server and system interface",
-    tags: [
-      "Model metadata",
-      "Class labels",
-      "Inference pipeline",
-      "Output mapping",
-      "Evaluation ready",
-    ],
+    tags: ["Model metadata", "Class labels", "Inference pipeline", "Output mapping", "Evaluation ready"],
   },
   {
     id: "reliable-interface",
     title: "Reliable interface.",
-    desc: "UI dibuat konsisten agar pengguna memahami proses tanpa harus membaca isi kepala developer.",
+    desc: "UI dibuat konsisten agar pengguna memahami proses tanpa harus membaca manual yang panjangnya seperti skripsi tambahan.",
     cta: "View interface",
     icon: ShieldCheck,
     image:
       "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=1800&q=85",
     imageAlt: "Clothing collection arranged in retail display",
-    tags: [
-      "Clear states",
-      "Accessible actions",
-      "Readable outputs",
-      "Responsive layout",
-      "Simple interaction",
-    ],
+    tags: ["Clear states", "Accessible actions", "Readable outputs", "Responsive layout", "Simple interaction"],
   },
 ];
 
@@ -732,7 +745,7 @@ function ProductButton({ to = "/predict", children }) {
   return (
     <Link
       to={to}
-      className="group inline-flex h-10 items-center justify-center overflow-hidden rounded-md bg-[#f1eee5] px-3 text-sm font-semibold text-[#111] transition hover:bg-[#111] hover:text-white md:h-12 md:px-4"
+      className="group inline-flex h-10 items-center justify-center overflow-hidden rounded-md bg-[#f1eee5] px-3 text-sm font-semibold text-[#111] transition duration-300 hover:bg-[#111] hover:text-white md:h-12 md:px-4"
     >
       <span className="hidden items-center gap-2 md:inline-flex">
         <span className="grid size-5 -translate-x-8 place-items-center opacity-0 transition duration-300 group-hover:translate-x-0 group-hover:opacity-100">
@@ -762,24 +775,22 @@ function ProductVisual({ item, index }) {
     <div className="relative h-[360px] overflow-hidden bg-[#161728] md:h-[560px]">
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60 grayscale md:bg-fixed"
-        style={{
-          backgroundImage: `url(${item.image})`,
-        }}
+        style={{ backgroundImage: `url(${item.image})` }}
+        role="img"
+        aria-label={item.imageAlt}
       />
 
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(18,18,32,0.34),rgba(18,18,32,0.94))]" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(18,18,32,0.28),rgba(18,18,32,0.94))]" />
 
       <div className="absolute inset-0 grid grid-cols-12 grid-rows-8 opacity-70">
         {Array.from({ length: 96 }).map((_, cellIndex) => (
           <span
             key={cellIndex}
-            className={`border-b border-r border-white/[0.08] ${
-              (cellIndex + index) % 17 === 0
-                ? "bg-white/[0.075]"
-                : (cellIndex + index) % 29 === 0
-                ? "bg-[#fa520f]/20"
-                : ""
-            }`}
+            className={cx(
+              "border-b border-r border-white/[0.08]",
+              (cellIndex + index) % 17 === 0 && "bg-white/[0.075]",
+              (cellIndex + index) % 29 === 0 && "bg-[#fa520f]/20"
+            )}
           />
         ))}
       </div>
@@ -792,7 +803,13 @@ function ProductVisual({ item, index }) {
         <Icon size={23} strokeWidth={1.7} />
       </div>
 
-      <div className="absolute left-1/2 top-1/2 w-[82%] max-w-[580px] -translate-x-1/2 -translate-y-1/2 border border-white/15 bg-[#23243a]/90 p-5 shadow-[0_28px_80px_rgba(0,0,0,0.32)] md:p-7">
+      <motion.div
+        initial={{ opacity: 0, y: 22 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-20% 0px" }}
+        transition={{ duration: 0.45 }}
+        className="absolute left-1/2 top-1/2 w-[82%] max-w-[600px] -translate-x-1/2 -translate-y-1/2 border border-white/15 bg-[#23243a]/90 p-5 shadow-[0_28px_80px_rgba(0,0,0,0.32)] backdrop-blur md:p-7"
+      >
         <p className="mb-5 font-mono text-[11px] uppercase tracking-[0.18em] text-[#ffaf01]">
           Running visual analysis
         </p>
@@ -806,17 +823,16 @@ function ProductVisual({ item, index }) {
           </p>
           <p>
             <span className="text-[#27d7d7]">●</span>{" "}
-            <span className="text-[#ffcf69]">trend_score</span> =
-            analyse(image)
+            <span className="text-[#ffcf69]">trend_score</span> = analyse(image)
           </p>
           <p>
             <span className="text-[#27d7d7]">●</span>{" "}
             <span className="text-[#ffcf69]">status</span> = generateInsight()
           </p>
         </div>
-      </div>
+      </motion.div>
 
-      <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-4 border-white/15 pt-4 md:bottom-6 md:left-6 md:right-6">
+      <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-4 border-t border-white/15 pt-4 md:bottom-6 md:left-6 md:right-6">
         <p className="max-w-[320px] font-mono text-[10px] uppercase leading-5 tracking-[0.16em] text-white/60">
           {item.title}
         </p>
@@ -829,10 +845,7 @@ function ProductVisual({ item, index }) {
 
 function ProductSuiteSection() {
   return (
-    <section
-      id="products"
-      className="w-full scroll-mt-12  bg-[#fbfaf5]"
-    >
+    <section id="products" className="w-full scroll-mt-12 bg-[#fbfaf5]">
       <div className="mx-auto w-full max-w-[1728px] border-x border-[#111]/10">
         <div className="grid md:grid-cols-[88px_minmax(0,1fr)] xl:grid-cols-[104px_minmax(0,1fr)]">
           <aside className="hidden border-r border-[#111]/10 md:block">
@@ -856,15 +869,11 @@ function ProductSuiteSection() {
                           }}
                           onClick={() => {
                             const target = document.getElementById(item.id);
-
                             if (!target) return;
 
-                            target.scrollIntoView({
-                              behavior: "smooth",
-                              block: "start",
-                            });
+                            target.scrollIntoView({ behavior: "smooth", block: "start" });
                           }}
-                          className="group grid size-9 place-items-center rounded-md bg-[#f1eee5] text-[#111]/55 transition hover:bg-[#111] hover:text-white"
+                          className="group grid size-9 place-items-center rounded-md bg-[#f1eee5] text-[#111]/55 transition duration-300 hover:bg-[#111] hover:text-white"
                           aria-label={item.title}
                         >
                           <Icon size={17} strokeWidth={1.8} />
@@ -880,9 +889,7 @@ function ProductSuiteSection() {
           <div className="min-w-0">
             <div className="grid border-b border-[#111]/10 md:grid-cols-[220px_1fr]">
               <div className="border-b border-[#111]/10 px-4 py-6 md:border-b-0 md:border-r md:px-6">
-                <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-[#fa520f]">
-                  Summary
-                </p>
+                <SectionKicker>Summary</SectionKicker>
               </div>
 
               <div className="p-4 md:p-6">
@@ -962,29 +969,35 @@ function FeaturesSection() {
   ];
 
   return (
-    <section id="features" className=" ">
-      <div className="mx-auto max-w-[1728px] border-y border-[#111]/10 border-x border-[#111]/10">
+    <section id="features" className="bg-[#fbfaf5]">
+      <div className="mx-auto max-w-[1728px] border-x border-y border-[#111]/10">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4">
-          {features.map((item) => (
-            <motion.div
-              key={item.title}
-              // whileHover={{ y: -8 }}
-              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-              className="group min-h-[280px] border-b border-r border-[#111]/10 bg-[#fbfaf5] p-6 transition hover:bg-[#f1eee5] sm:p-8"
-            >
-              <div className="grid h-12 w-12 place-items-center bg-[#fa520f] text-white transition group-hover:bg-[#111]">
-                <item.icon size={22} />
-              </div>
+          {features.map((item, index) => {
+            const Icon = item.icon;
 
-              <h3 className="mt-10 font-sans text-4xl font-semibold leading-none tracking-[-1.5px] text-[#111]">
-                {item.title}
-              </h3>
+            return (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-15% 0px" }}
+                transition={{ duration: 0.35, delay: index * 0.05 }}
+                className="group min-h-[280px] border-b border-r border-[#111]/10 bg-[#fbfaf5] p-6 transition duration-300 hover:bg-[#f1eee5] sm:p-8"
+              >
+                <div className="grid h-12 w-12 place-items-center bg-[#fa520f] text-white transition duration-300 group-hover:bg-[#111]">
+                  <Icon size={22} />
+                </div>
 
-              <p className="mt-4 max-w-sm text-sm leading-7 text-[#4a4a4a]">
-                {item.desc}
-              </p>
-            </motion.div>
-          ))}
+                <h3 className="mt-10 font-sans text-4xl font-semibold leading-none tracking-[-1.5px] text-[#111]">
+                  {item.title}
+                </h3>
+
+                <p className="mt-4 max-w-sm text-sm leading-7 text-[#4a4a4a]">
+                  {item.desc}
+                </p>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -992,13 +1005,18 @@ function FeaturesSection() {
 }
 
 function ImplementationSection() {
+  const codeLines = [
+    { left: "const", text: " model = await tf.loadLayersModel(", highlight: '"/models/fashion/model.json"', right: ");" },
+    { left: "const", text: " input = preprocessImage(image);", highlight: "", right: "" },
+    { left: "const", text: " prediction = model.predict(input);", highlight: "", right: "" },
+    { left: "return", text: " { kategori, confidence, trendScore, statusTrend };", highlight: "", right: "" },
+  ];
+
   return (
     <section id="implementation" className="bg-[#fbfaf5]">
       <div className="mx-auto grid max-w-[1728px] border-x border-b border-[#111]/10 lg:grid-cols-[220px_1fr]">
         <div className="border-b border-[#111]/10 p-5 lg:border-b-0 lg:border-r lg:p-6">
-          <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-[#fa520f]">
-            Implementation
-          </p>
+          <SectionKicker>Implementation</SectionKicker>
         </div>
 
         <div className="grid min-h-[620px] lg:grid-cols-[0.95fr_1.05fr]">
@@ -1010,51 +1028,51 @@ function ImplementationSection() {
 
               <p className="mt-6 max-w-xl text-base leading-8 text-[#3d3d3d]">
                 TensorFlow.js memuat model dari folder public, memproses gambar,
-                lalu mengembalikan kategori, confidence, trend score, dan status
-                tren.
+                lalu mengembalikan kategori, confidence, trend score, dan status tren.
               </p>
             </div>
 
-            <Link
-              to="/predict"
-              className="mt-10 inline-flex w-fit items-center gap-2 bg-[#111] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#fa520f]"
-            >
+            <ActionLink to="/predict" className="mt-10 w-fit">
               Coba Sekarang
-              <PixelArrow className="size-4" />
-            </Link>
+            </ActionLink>
           </div>
 
-          <div className="m-5 overflow-hidden border border-[#111]/10 bg-[#101011] text-white sm:m-8 xl:m-10">
-            <div className="border-b border-white/10 px-5 py-4 font-mono text-xs text-white/40 sm:px-6 sm:text-sm">
-              src/utils/modelUtils.js
+          <div className="m-5 overflow-hidden border border-[#111]/10 bg-[#101011] text-white shadow-[14px_14px_0_rgba(17,17,17,0.06)] sm:m-8 xl:m-10">
+            <div className="flex items-center justify-between border-b border-white/10 px-5 py-4 font-mono text-xs text-white/40 sm:px-6 sm:text-sm">
+              <span>src/utils/modelUtils.js</span>
+              <span className="inline-flex items-center gap-2 text-[#ffaf01]">
+                Live inference <ArrowUpRight size={14} />
+              </span>
             </div>
 
             <div className="overflow-x-auto px-5 py-6 sm:px-6">
-              <div className="min-w-[520px] space-y-5 font-mono text-xs leading-7 text-white/72 sm:text-sm">
-                <p>
-                  <span className="text-[#ffd06a]">const</span> model = await
-                  tf.loadLayersModel(
-                  <span className="text-[#ffb83e]">
-                    "/models/fashion/model.json"
-                  </span>
-                  )
-                </p>
-
-                <p>
-                  <span className="text-[#ffd06a]">const</span> input =
-                  preprocessImage(image)
-                </p>
-
-                <p>
-                  <span className="text-[#ffd06a]">const</span> prediction =
-                  model.predict(input)
-                </p>
-
-                <p>
-                  <span className="text-[#ffd06a]">return</span> kategori +
-                  confidence + trendScore + statusTrend
-                </p>
+              <div className="min-w-[560px] space-y-5 font-mono text-xs leading-7 text-white/72 sm:text-sm">
+                {codeLines.map((line, index) => (
+                  <motion.p
+                    key={`${line.left}-${index}`}
+                    initial={{ opacity: 0, x: -16 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.28, delay: index * 0.08 }}
+                  >
+                    <span className="select-none text-white/25">0{index + 1}</span>{" "}
+                    <span className="text-[#ffd06a]">{line.left}</span>
+                    {line.text}
+                    {line.highlight && <span className="text-[#ffb83e]">{line.highlight}</span>}
+                    {line.right}
+                  </motion.p>
+                ))}
               </div>
+            </div>
+
+            <div className="grid border-t border-white/10 sm:grid-cols-3">
+              {["Fast preview", "Readable output", "Browser based"].map((item) => (
+                <div key={item} className="border-b border-r border-white/10 px-5 py-4 sm:border-b-0">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/46">
+                    {item}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -1067,12 +1085,10 @@ function FinalCTA() {
   return (
     <section id="cta" className="bg-[#fbfaf5]">
       <div className="mx-auto max-w-[1728px] border-x border-b border-[#111]/10">
-        <div className="grid min-h-[540px] ">
-          <div className="flex flex-col justify-between border-b border-[#111]/10 p-5 sm:p-8 lg:border-b-0  xl:p-10">
+        <div className="grid min-h-[560px] lg:grid-cols-[1fr_420px]">
+          <div className="flex flex-col justify-between border-b border-[#111]/10 p-5 sm:p-8 lg:border-b-0 lg:border-r xl:p-10">
             <div>
-              <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-[#fa520f]">
-                Start analysing
-              </p>
+              <SectionKicker>Start analysing</SectionKicker>
 
               <h2 className="mt-8 max-w-5xl font-sans text-[58px] font-semibold leading-[0.9] tracking-[-3px] text-[#111] sm:text-7xl xl:text-[108px]">
                 Build your own fashion prediction flow.
@@ -1080,29 +1096,40 @@ function FinalCTA() {
             </div>
 
             <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-              <Link
-                to="/predict"
-                className="inline-flex w-fit items-center gap-2 bg-[#111] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#fa520f]"
-              >
-                Start analysing
-                <PixelArrow className="size-4" />
-              </Link>
-
-              <a
-                href="#workflow"
-                className="inline-flex w-fit items-center gap-2 border border-[#111]/10 px-5 py-3 text-sm font-semibold text-[#111] transition hover:bg-[#f1eee5]"
-              >
+              <ActionLink to="/predict">Start analysing</ActionLink>
+              <ActionLink href="#workflow" variant="ghost">
                 View workflow
-                <PixelArrow className="size-4" />
-              </a>
+              </ActionLink>
             </div>
           </div>
 
-          {/* <div className="grid bg-[#ffe8a5] p-5 sm:p-8 xl:p-10">
-            <div className="grid place-items-center border border-[#111]/10 bg-[#fbfaf5]">
-              <PixelLogo className="w-40" />
+          <div className="grid bg-[#ffe8a5] p-5 sm:p-8 xl:p-10">
+            <div className="relative grid place-items-center overflow-hidden border border-[#111]/10 bg-[#fbfaf5]">
+              <div className="absolute inset-0 grid grid-cols-6 grid-rows-6 opacity-70">
+                {Array.from({ length: 36 }).map((_, index) => (
+                  <motion.span
+                    key={index}
+                    className="border-b border-r border-[#111]/10"
+                    animate={{
+                      backgroundColor: [
+                        "rgba(250,82,15,0)",
+                        index % 5 === 0 ? "rgba(250,82,15,0.22)" : "rgba(250,82,15,0)",
+                        "rgba(250,82,15,0)",
+                      ],
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      delay: index * 0.035,
+                      ease: "easeInOut",
+                    }}
+                  />
+                ))}
+              </div>
+
+              <PixelLogo className="relative z-10 w-40 drop-shadow-[12px_12px_0_rgba(17,17,17,0.12)]" />
             </div>
-          </div> */}
+          </div>
         </div>
       </div>
     </section>
@@ -1111,7 +1138,7 @@ function FinalCTA() {
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-[#fbfaf5] text-[#111]">
+    <div className="min-h-screen bg-[#fbfaf5] text-[#111] selection:bg-[#fa520f] selection:text-white">
       <Header />
 
       <main>
