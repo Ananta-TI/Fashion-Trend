@@ -478,9 +478,9 @@ export default function Footer() {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 border-b border-[#1f1f1f]/15 lg:grid-cols-[1.05fr_0.95fr] lg:divide-x lg:divide-[#1f1f1f]/15">
+        <div className="grid grid-cols-1 border-b border-[#1f1f1f]/15 lg:grid-cols-2 lg:divide-x lg:divide-[#1f1f1f]/15">
           <div className="flex min-h-[360px] flex-col justify-between gap-10 px-5 py-8 sm:px-8 md:py-10 lg:px-10">
-            <div className="max-w-3xl">
+            <div className="max-w-2xl">
               <p className="mb-5 font-mono text-xs font-semibold uppercase tracking-[0.22em] text-[#77705f]">
                 FashionTrend AI
               </p>
