@@ -73,68 +73,113 @@ function PixelLogo({ className = "w-9" }) {
 }
 
 function PixelMosaic() {
-  const cells = [
-    "bg-[#ff4d13]",
-    "bg-[#ff4d13]",
-    "bg-[#ff4d13]",
-    "bg-[#e91408]",
-    "bg-[#c7002a]",
-    "bg-[#ff4d13]",
-    "bg-[#ff8508]",
-    "bg-[#e91408]",
-    "bg-[#ff4d13]",
-    "bg-[#ff4d13]",
-    "bg-[#ff8508]",
-    "bg-[#c7002a]",
-    "bg-[#e91408]",
-    "bg-[#c7002a]",
-    "bg-[#c7002a]",
-    "bg-[#ff4d13]",
-    "bg-[#ff4d13]",
-    "bg-[#ff4d13]",
-    "bg-[#e91408]",
-    "bg-[#ff4d13]",
-    "bg-[#c7002a]",
-    "bg-[#ff4d13]",
-    "bg-[#e91408]",
-    "bg-[#ff4d13]",
-    "bg-[#ff4d13]",
-    "bg-[#c7002a]",
-    "bg-[#c7002a]",
-    "bg-[#e91408]",
-    "bg-[#ff4d13]",
-    "bg-[#c7002a]",
-    "bg-[#ff8508]",
-    "bg-[#e91408]",
+  const patterns = [
+    [
+      "#ff4d13", "#ff4d13", "#ff4d13", "#e91408", "#c7002a", "#ff4d13", "#ff8508", "#e91408",
+      "#ff4d13", "#ff4d13", "#ff8508", "#c7002a", "#e91408", "#c7002a", "#c7002a", "#ff4d13",
+      "#ff4d13", "#ff4d13", "#e91408", "#ff4d13", "#c7002a", "#ff4d13", "#e91408", "#ff4d13",
+      "#ff4d13", "#c7002a", "#c7002a", "#e91408", "#ff4d13", "#c7002a", "#ff8508", "#e91408",
+    ],
+    [
+      "#e91408", "#ff4d13", "#c7002a", "#ff4d13", "#ff8508", "#e91408", "#ff4d13", "#c7002a",
+      "#ff8508", "#c7002a", "#ff4d13", "#ff4d13", "#c7002a", "#ff4d13", "#e91408", "#ff8508",
+      "#c7002a", "#ff4d13", "#ff4d13", "#e91408", "#ff4d13", "#c7002a", "#ff8508", "#ff4d13",
+      "#e91408", "#ff4d13", "#c7002a", "#ff4d13", "#ff8508", "#e91408", "#c7002a", "#ff4d13",
+    ],
+    [
+      "#c7002a", "#ff8508", "#ff4d13", "#ff4d13", "#e91408", "#c7002a", "#ff4d13", "#ff8508",
+      "#ff4d13", "#e91408", "#c7002a", "#ff8508", "#ff4d13", "#ff4d13", "#e91408", "#c7002a",
+      "#ff8508", "#ff4d13", "#c7002a", "#ff4d13", "#ff4d13", "#e91408", "#ff8508", "#c7002a",
+      "#ff4d13", "#ff4d13", "#e91408", "#c7002a", "#ff8508", "#ff4d13", "#e91408", "#ff4d13",
+    ],
+    [
+      "#ff8508", "#c7002a", "#e91408", "#ff4d13", "#ff4d13", "#ff8508", "#c7002a", "#ff4d13",
+      "#e91408", "#ff4d13", "#ff4d13", "#c7002a", "#ff8508", "#e91408", "#ff4d13", "#ff4d13",
+      "#c7002a", "#ff8508", "#ff4d13", "#e91408", "#c7002a", "#ff4d13", "#ff8508", "#ff4d13",
+      "#ff4d13", "#e91408", "#c7002a", "#ff8508", "#ff4d13", "#ff4d13", "#e91408", "#c7002a",
+    ],
+  ];
+
+  const dots = [
+    "left-[20%] top-[26%]",
+    "right-[20%] top-[26%]",
+    "bottom-[24%] left-[20%]",
+    "bottom-[24%] right-[20%]",
   ];
 
   return (
     <div className="relative h-full w-full overflow-hidden bg-[#ff4d13]">
       <div className="absolute inset-0 grid grid-cols-8 grid-rows-4">
-        {cells.map((cell, index) => (
-          <div
+        {patterns[0].map((_, index) => (
+          <motion.div
             key={index}
-            className={cx(cell, "border-b border-r border-black/10")}
+            className="border-b border-r border-black/10"
+            animate={{
+              backgroundColor: patterns.map((pattern) => pattern[index]),
+            }}
+            transition={{
+              duration: 5.5,
+              repeat: Infinity,
+              ease: "steps(1, end)",
+              times: [0, 0.25, 0.5, 0.75],
+              delay: (index % 8) * 0.06 + Math.floor(index / 8) * 0.08,
+            }}
           />
         ))}
       </div>
 
-      <div className="absolute left-[18%] top-[67%] font-mono text-[10px] font-bold uppercase tracking-[0.12em] text-black">
+      <motion.div
+        className="absolute left-[18%] top-[67%] font-mono text-[10px] font-bold uppercase tracking-[0.12em] text-black"
+        animate={{ opacity: [1, 0.72, 1] }}
+        transition={{
+          duration: 2.8,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      >
         Frontier AI
-      </div>
+      </motion.div>
 
-      <div className="absolute right-[12%] top-[28%] font-mono text-[10px] font-bold uppercase tracking-[0.12em] text-black">
+      <motion.div
+        className="absolute right-[12%] top-[28%] font-mono text-[10px] font-bold uppercase tracking-[0.12em] text-black"
+        animate={{ opacity: [1, 0.72, 1] }}
+        transition={{
+          duration: 3.2,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      >
         In your hands
-      </div>
+      </motion.div>
 
-      <div className="absolute left-[20%] top-[26%] h-1.5 w-1.5 bg-black" />
-      <div className="absolute right-[20%] top-[26%] h-1.5 w-1.5 bg-black" />
-      <div className="absolute bottom-[24%] left-[20%] h-1.5 w-1.5 bg-black" />
-      <div className="absolute bottom-[24%] right-[20%] h-1.5 w-1.5 bg-black" />
+      {dots.map((position, index) => (
+        <motion.div
+          key={position}
+          className={`absolute h-1.5 w-1.5 bg-black ${position}`}
+          animate={{
+            opacity: [1, 0.35, 1],
+            scale: [1, 1.4, 1],
+          }}
+          transition={{
+            duration: 2.2,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: index * 0.25,
+          }}
+        />
+      ))}
 
-      <div className="absolute bottom-4 right-10">
+      <motion.div
+        className="absolute bottom-4 right-10"
+        animate={{ opacity: [1, 0.85, 1] }}
+        transition={{
+          duration: 3.5,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      >
         <PixelLogo className="w-14 drop-shadow-[8px_8px_0_rgba(0,0,0,0.35)]" />
-      </div>
+      </motion.div>
     </div>
   );
 }
