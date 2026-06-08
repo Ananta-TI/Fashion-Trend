@@ -1019,7 +1019,7 @@ function ImplementationSection() {
           <SectionKicker>Implementation</SectionKicker>
         </div>
 
-        <div className="grid min-h-[620px] lg:grid-cols-[0.95fr_1.05fr]">
+        <div className="grid min-h-[620px] lg:grid-cols-2">
           <div className="flex flex-col justify-between border-b border-[#111]/10 p-5 sm:p-8 lg:border-b-0 lg:border-r xl:p-10">
             <div>
               <h2 className="max-w-4xl font-sans text-[52px] font-semibold leading-[0.95] tracking-[-3px] text-[#111] sm:text-6xl xl:text-[86px]">
@@ -1085,7 +1085,7 @@ function FinalCTA() {
   return (
     <section id="cta" className="bg-[#fbfaf5]">
       <div className="mx-auto max-w-[1728px] border-x border-b border-[#111]/10">
-        <div className="grid min-h-[560px] lg:grid-cols-[1fr_420px]">
+        <div className="grid min-h-[560px] ">
           <div className="flex flex-col justify-between border-b border-[#111]/10 p-5 sm:p-8 lg:border-b-0 lg:border-r xl:p-10">
             <div>
               <SectionKicker>Start analysing</SectionKicker>
@@ -1103,7 +1103,7 @@ function FinalCTA() {
             </div>
           </div>
 
-          <div className="grid bg-[#ffe8a5] p-5 sm:p-8 xl:p-10">
+          {/* <div className="grid bg-[#ffe8a5] p-5 sm:p-8 xl:p-10">
             <div className="relative grid place-items-center overflow-hidden border border-[#111]/10 bg-[#fbfaf5]">
               <div className="absolute inset-0 grid grid-cols-6 grid-rows-6 opacity-70">
                 {Array.from({ length: 36 }).map((_, index) => (
@@ -1129,7 +1129,7 @@ function FinalCTA() {
 
               <PixelLogo className="relative z-10 w-40 drop-shadow-[12px_12px_0_rgba(17,17,17,0.12)]" />
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </section>
