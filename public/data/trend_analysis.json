@@ -1,0 +1,920 @@
+{
+  "meta": {
+    "judul": "Analisis tren historis popularitas produk fashion berdasarkan pangsa aktivitas ulasan",
+    "periode_awal": "2022-09",
+    "periode_akhir": "2023-08",
+    "jumlah_produk_cocok": 1529,
+    "jumlah_ulasan": 35485,
+    "cakupan_produk_persen": 11.56,
+    "jumlah_kategori": 8,
+    "sumber_indikator": "Aktivitas ulasan, rating, jumlah produk aktif, dan pengguna aktif",
+    "metode": "Perbandingan rata-rata pangsa ulasan 3 bulan terbaru dengan 3 bulan sebelumnya, disertai slope pangsa selama 6 bulan",
+    "catatan": "Analisis ini menunjukkan tren historis popularitas berdasarkan aktivitas ulasan, bukan tren penjualan atau kondisi pasar terkini."
+  },
+  "categories": {
+    "bag": {
+      "status": "MENINGKAT",
+      "kualitas_data": "TINGGI",
+      "pangsa_ulasan_terbaru": 23.42,
+      "pangsa_ulasan_sebelumnya": 20.72,
+      "perubahan_pangsa_pp": 2.7,
+      "pertumbuhan_pangsa_persen": 13.04,
+      "slope_pangsa_6_bulan": 0.75,
+      "jumlah_ulasan_terbaru": 83,
+      "rata_rating": 4.26,
+      "produk_aktif": 26,
+      "pengguna_aktif": 40,
+      "peringkat_popularitas": 1,
+      "peringkat_pertumbuhan": 2,
+      "history": [
+        {
+          "periode": "2022-09",
+          "jumlah_ulasan": 74,
+          "pangsa_ulasan": 23.79,
+          "jumlah_produk": 42,
+          "jumlah_pengguna": 74,
+          "rata_rating": 4.28
+        },
+        {
+          "periode": "2022-10",
+          "jumlah_ulasan": 80,
+          "pangsa_ulasan": 24.62,
+          "jumlah_produk": 43,
+          "jumlah_pengguna": 77,
+          "rata_rating": 4.3
+        },
+        {
+          "periode": "2022-11",
+          "jumlah_ulasan": 67,
+          "pangsa_ulasan": 19.48,
+          "jumlah_produk": 43,
+          "jumlah_pengguna": 67,
+          "rata_rating": 4.23
+        },
+        {
+          "periode": "2022-12",
+          "jumlah_ulasan": 71,
+          "pangsa_ulasan": 18.54,
+          "jumlah_produk": 45,
+          "jumlah_pengguna": 71,
+          "rata_rating": 4.26
+        },
+        {
+          "periode": "2023-01",
+          "jumlah_ulasan": 77,
+          "pangsa_ulasan": 19.01,
+          "jumlah_produk": 46,
+          "jumlah_pengguna": 74,
+          "rata_rating": 4.12
+        },
+        {
+          "periode": "2023-02",
+          "jumlah_ulasan": 62,
+          "pangsa_ulasan": 17.87,
+          "jumlah_produk": 38,
+          "jumlah_pengguna": 61,
+          "rata_rating": 4.28
+        },
+        {
+          "periode": "2023-03",
+          "jumlah_ulasan": 70,
+          "pangsa_ulasan": 17.86,
+          "jumlah_produk": 41,
+          "jumlah_pengguna": 68,
+          "rata_rating": 4.18
+        },
+        {
+          "periode": "2023-04",
+          "jumlah_ulasan": 73,
+          "pangsa_ulasan": 22.19,
+          "jumlah_produk": 41,
+          "jumlah_pengguna": 72,
+          "rata_rating": 4.22
+        },
+        {
+          "periode": "2023-05",
+          "jumlah_ulasan": 61,
+          "pangsa_ulasan": 22.1,
+          "jumlah_produk": 36,
+          "jumlah_pengguna": 56,
+          "rata_rating": 4.21
+        },
+        {
+          "periode": "2023-06",
+          "jumlah_ulasan": 41,
+          "pangsa_ulasan": 23.3,
+          "jumlah_produk": 26,
+          "jumlah_pengguna": 40,
+          "rata_rating": 4.32
+        },
+        {
+          "periode": "2023-07",
+          "jumlah_ulasan": 31,
+          "pangsa_ulasan": 26.96,
+          "jumlah_produk": 19,
+          "jumlah_pengguna": 31,
+          "rata_rating": 4.13
+        },
+        {
+          "periode": "2023-08",
+          "jumlah_ulasan": 11,
+          "pangsa_ulasan": 20.0,
+          "jumlah_produk": 10,
+          "jumlah_pengguna": 11,
+          "rata_rating": 4.43
+        }
+      ]
+    },
+    "jacket": {
+      "status": "MENURUN",
+      "kualitas_data": "TINGGI",
+      "pangsa_ulasan_terbaru": 21.4,
+      "pangsa_ulasan_sebelumnya": 22.73,
+      "perubahan_pangsa_pp": -1.33,
+      "pertumbuhan_pangsa_persen": -5.86,
+      "slope_pangsa_6_bulan": -0.09,
+      "jumlah_ulasan_terbaru": 70,
+      "rata_rating": 3.79,
+      "produk_aktif": 23,
+      "pengguna_aktif": 35,
+      "peringkat_popularitas": 2,
+      "peringkat_pertumbuhan": 4,
+      "history": [
+        {
+          "periode": "2022-09",
+          "jumlah_ulasan": 45,
+          "pangsa_ulasan": 14.47,
+          "jumlah_produk": 29,
+          "jumlah_pengguna": 45,
+          "rata_rating": 4.18
+        },
+        {
+          "periode": "2022-10",
+          "jumlah_ulasan": 56,
+          "pangsa_ulasan": 17.23,
+          "jumlah_produk": 35,
+          "jumlah_pengguna": 56,
+          "rata_rating": 3.83
+        },
+        {
+          "periode": "2022-11",
+          "jumlah_ulasan": 68,
+          "pangsa_ulasan": 19.77,
+          "jumlah_produk": 42,
+          "jumlah_pengguna": 66,
+          "rata_rating": 3.86
+        },
+        {
+          "periode": "2022-12",
+          "jumlah_ulasan": 90,
+          "pangsa_ulasan": 23.5,
+          "jumlah_produk": 59,
+          "jumlah_pengguna": 80,
+          "rata_rating": 3.78
+        },
+        {
+          "periode": "2023-01",
+          "jumlah_ulasan": 101,
+          "pangsa_ulasan": 24.94,
+          "jumlah_produk": 60,
+          "jumlah_pengguna": 94,
+          "rata_rating": 3.8
+        },
+        {
+          "periode": "2023-02",
+          "jumlah_ulasan": 85,
+          "pangsa_ulasan": 24.5,
+          "jumlah_produk": 52,
+          "jumlah_pengguna": 84,
+          "rata_rating": 3.65
+        },
+        {
+          "periode": "2023-03",
+          "jumlah_ulasan": 93,
+          "pangsa_ulasan": 23.72,
+          "jumlah_produk": 49,
+          "jumlah_pengguna": 86,
+          "rata_rating": 3.85
+        },
+        {
+          "periode": "2023-04",
+          "jumlah_ulasan": 76,
+          "pangsa_ulasan": 23.1,
+          "jumlah_produk": 42,
+          "jumlah_pengguna": 73,
+          "rata_rating": 3.81
+        },
+        {
+          "periode": "2023-05",
+          "jumlah_ulasan": 59,
+          "pangsa_ulasan": 21.38,
+          "jumlah_produk": 31,
+          "jumlah_pengguna": 56,
+          "rata_rating": 3.82
+        },
+        {
+          "periode": "2023-06",
+          "jumlah_ulasan": 33,
+          "pangsa_ulasan": 18.75,
+          "jumlah_produk": 22,
+          "jumlah_pengguna": 31,
+          "rata_rating": 3.75
+        },
+        {
+          "periode": "2023-07",
+          "jumlah_ulasan": 23,
+          "pangsa_ulasan": 20.0,
+          "jumlah_produk": 17,
+          "jumlah_pengguna": 20,
+          "rata_rating": 3.76
+        },
+        {
+          "periode": "2023-08",
+          "jumlah_ulasan": 14,
+          "pangsa_ulasan": 25.45,
+          "jumlah_produk": 11,
+          "jumlah_pengguna": 13,
+          "rata_rating": 3.91
+        }
+      ]
+    },
+    "socks": {
+      "status": "MENURUN",
+      "kualitas_data": "TINGGI",
+      "pangsa_ulasan_terbaru": 18.13,
+      "pangsa_ulasan_sebelumnya": 23.74,
+      "perubahan_pangsa_pp": -5.61,
+      "pertumbuhan_pangsa_persen": -23.62,
+      "slope_pangsa_6_bulan": -1.68,
+      "jumlah_ulasan_terbaru": 67,
+      "rata_rating": 3.79,
+      "produk_aktif": 13,
+      "pengguna_aktif": 40,
+      "peringkat_popularitas": 3,
+      "peringkat_pertumbuhan": 5,
+      "history": [
+        {
+          "periode": "2022-09",
+          "jumlah_ulasan": 65,
+          "pangsa_ulasan": 20.9,
+          "jumlah_produk": 26,
+          "jumlah_pengguna": 65,
+          "rata_rating": 4.02
+        },
+        {
+          "periode": "2022-10",
+          "jumlah_ulasan": 67,
+          "pangsa_ulasan": 20.62,
+          "jumlah_produk": 25,
+          "jumlah_pengguna": 66,
+          "rata_rating": 3.78
+        },
+        {
+          "periode": "2022-11",
+          "jumlah_ulasan": 68,
+          "pangsa_ulasan": 19.77,
+          "jumlah_produk": 26,
+          "jumlah_pengguna": 68,
+          "rata_rating": 3.83
+        },
+        {
+          "periode": "2022-12",
+          "jumlah_ulasan": 70,
+          "pangsa_ulasan": 18.28,
+          "jumlah_produk": 26,
+          "jumlah_pengguna": 67,
+          "rata_rating": 3.74
+        },
+        {
+          "periode": "2023-01",
+          "jumlah_ulasan": 88,
+          "pangsa_ulasan": 21.73,
+          "jumlah_produk": 34,
+          "jumlah_pengguna": 85,
+          "rata_rating": 3.94
+        },
+        {
+          "periode": "2023-02",
+          "jumlah_ulasan": 83,
+          "pangsa_ulasan": 23.92,
+          "jumlah_produk": 33,
+          "jumlah_pengguna": 83,
+          "rata_rating": 3.73
+        },
+        {
+          "periode": "2023-03",
+          "jumlah_ulasan": 88,
+          "pangsa_ulasan": 22.45,
+          "jumlah_produk": 34,
+          "jumlah_pengguna": 87,
+          "rata_rating": 3.95
+        },
+        {
+          "periode": "2023-04",
+          "jumlah_ulasan": 77,
+          "pangsa_ulasan": 23.4,
+          "jumlah_produk": 28,
+          "jumlah_pengguna": 77,
+          "rata_rating": 3.83
+        },
+        {
+          "periode": "2023-05",
+          "jumlah_ulasan": 70,
+          "pangsa_ulasan": 25.36,
+          "jumlah_produk": 24,
+          "jumlah_pengguna": 67,
+          "rata_rating": 3.88
+        },
+        {
+          "periode": "2023-06",
+          "jumlah_ulasan": 38,
+          "pangsa_ulasan": 21.59,
+          "jumlah_produk": 13,
+          "jumlah_pengguna": 38,
+          "rata_rating": 3.76
+        },
+        {
+          "periode": "2023-07",
+          "jumlah_ulasan": 21,
+          "pangsa_ulasan": 18.26,
+          "jumlah_produk": 10,
+          "jumlah_pengguna": 20,
+          "rata_rating": 3.98
+        },
+        {
+          "periode": "2023-08",
+          "jumlah_ulasan": 8,
+          "pangsa_ulasan": 14.55,
+          "jumlah_produk": 4,
+          "jumlah_pengguna": 8,
+          "rata_rating": 3.44
+        }
+      ]
+    },
+    "shirt": {
+      "status": "MENINGKAT",
+      "kualitas_data": "SEDANG",
+      "pangsa_ulasan_terbaru": 15.98,
+      "pangsa_ulasan_sebelumnya": 9.58,
+      "perubahan_pangsa_pp": 6.4,
+      "pertumbuhan_pangsa_persen": 66.8,
+      "slope_pangsa_6_bulan": 2.0,
+      "jumlah_ulasan_terbaru": 50,
+      "rata_rating": 3.6,
+      "produk_aktif": 16,
+      "pengguna_aktif": 24,
+      "peringkat_popularitas": 4,
+      "peringkat_pertumbuhan": 1,
+      "history": [
+        {
+          "periode": "2022-09",
+          "jumlah_ulasan": 32,
+          "pangsa_ulasan": 10.29,
+          "jumlah_produk": 22,
+          "jumlah_pengguna": 31,
+          "rata_rating": 2.99
+        },
+        {
+          "periode": "2022-10",
+          "jumlah_ulasan": 38,
+          "pangsa_ulasan": 11.69,
+          "jumlah_produk": 23,
+          "jumlah_pengguna": 37,
+          "rata_rating": 3.23
+        },
+        {
+          "periode": "2022-11",
+          "jumlah_ulasan": 50,
+          "pangsa_ulasan": 14.53,
+          "jumlah_produk": 27,
+          "jumlah_pengguna": 43,
+          "rata_rating": 3.23
+        },
+        {
+          "periode": "2022-12",
+          "jumlah_ulasan": 54,
+          "pangsa_ulasan": 14.1,
+          "jumlah_produk": 25,
+          "jumlah_pengguna": 45,
+          "rata_rating": 3.19
+        },
+        {
+          "periode": "2023-01",
+          "jumlah_ulasan": 50,
+          "pangsa_ulasan": 12.35,
+          "jumlah_produk": 25,
+          "jumlah_pengguna": 43,
+          "rata_rating": 3.43
+        },
+        {
+          "periode": "2023-02",
+          "jumlah_ulasan": 44,
+          "pangsa_ulasan": 12.68,
+          "jumlah_produk": 24,
+          "jumlah_pengguna": 39,
+          "rata_rating": 3.61
+        },
+        {
+          "periode": "2023-03",
+          "jumlah_ulasan": 44,
+          "pangsa_ulasan": 11.22,
+          "jumlah_produk": 25,
+          "jumlah_pengguna": 38,
+          "rata_rating": 3.46
+        },
+        {
+          "periode": "2023-04",
+          "jumlah_ulasan": 29,
+          "pangsa_ulasan": 8.81,
+          "jumlah_produk": 21,
+          "jumlah_pengguna": 29,
+          "rata_rating": 3.51
+        },
+        {
+          "periode": "2023-05",
+          "jumlah_ulasan": 24,
+          "pangsa_ulasan": 8.7,
+          "jumlah_produk": 16,
+          "jumlah_pengguna": 23,
+          "rata_rating": 3.53
+        },
+        {
+          "periode": "2023-06",
+          "jumlah_ulasan": 23,
+          "pangsa_ulasan": 13.07,
+          "jumlah_produk": 14,
+          "jumlah_pengguna": 22,
+          "rata_rating": 3.29
+        },
+        {
+          "periode": "2023-07",
+          "jumlah_ulasan": 15,
+          "pangsa_ulasan": 13.04,
+          "jumlah_produk": 10,
+          "jumlah_pengguna": 14,
+          "rata_rating": 3.65
+        },
+        {
+          "periode": "2023-08",
+          "jumlah_ulasan": 12,
+          "pangsa_ulasan": 21.82,
+          "jumlah_produk": 8,
+          "jumlah_pengguna": 10,
+          "rata_rating": 4.13
+        }
+      ]
+    },
+    "pants": {
+      "status": "STABIL",
+      "kualitas_data": "SEDANG",
+      "pangsa_ulasan_terbaru": 9.05,
+      "pangsa_ulasan_sebelumnya": 9.04,
+      "perubahan_pangsa_pp": 0.01,
+      "pertumbuhan_pangsa_persen": 0.14,
+      "slope_pangsa_6_bulan": -0.05,
+      "jumlah_ulasan_terbaru": 32,
+      "rata_rating": 3.99,
+      "produk_aktif": 11,
+      "pengguna_aktif": 19,
+      "peringkat_popularitas": 5,
+      "peringkat_pertumbuhan": 3,
+      "history": [
+        {
+          "periode": "2022-09",
+          "jumlah_ulasan": 53,
+          "pangsa_ulasan": 17.04,
+          "jumlah_produk": 30,
+          "jumlah_pengguna": 52,
+          "rata_rating": 3.0
+        },
+        {
+          "periode": "2022-10",
+          "jumlah_ulasan": 44,
+          "pangsa_ulasan": 13.54,
+          "jumlah_produk": 26,
+          "jumlah_pengguna": 42,
+          "rata_rating": 3.35
+        },
+        {
+          "periode": "2022-11",
+          "jumlah_ulasan": 42,
+          "pangsa_ulasan": 12.21,
+          "jumlah_produk": 24,
+          "jumlah_pengguna": 42,
+          "rata_rating": 3.29
+        },
+        {
+          "periode": "2022-12",
+          "jumlah_ulasan": 38,
+          "pangsa_ulasan": 9.92,
+          "jumlah_produk": 19,
+          "jumlah_pengguna": 38,
+          "rata_rating": 3.2
+        },
+        {
+          "periode": "2023-01",
+          "jumlah_ulasan": 34,
+          "pangsa_ulasan": 8.4,
+          "jumlah_produk": 14,
+          "jumlah_pengguna": 31,
+          "rata_rating": 3.31
+        },
+        {
+          "periode": "2023-02",
+          "jumlah_ulasan": 29,
+          "pangsa_ulasan": 8.36,
+          "jumlah_produk": 15,
+          "jumlah_pengguna": 29,
+          "rata_rating": 3.24
+        },
+        {
+          "periode": "2023-03",
+          "jumlah_ulasan": 35,
+          "pangsa_ulasan": 8.93,
+          "jumlah_produk": 16,
+          "jumlah_pengguna": 34,
+          "rata_rating": 3.39
+        },
+        {
+          "periode": "2023-04",
+          "jumlah_ulasan": 30,
+          "pangsa_ulasan": 9.12,
+          "jumlah_produk": 14,
+          "jumlah_pengguna": 30,
+          "rata_rating": 3.49
+        },
+        {
+          "periode": "2023-05",
+          "jumlah_ulasan": 25,
+          "pangsa_ulasan": 9.06,
+          "jumlah_produk": 13,
+          "jumlah_pengguna": 25,
+          "rata_rating": 3.7
+        },
+        {
+          "periode": "2023-06",
+          "jumlah_ulasan": 18,
+          "pangsa_ulasan": 10.23,
+          "jumlah_produk": 10,
+          "jumlah_pengguna": 18,
+          "rata_rating": 3.98
+        },
+        {
+          "periode": "2023-07",
+          "jumlah_ulasan": 9,
+          "pangsa_ulasan": 7.83,
+          "jumlah_produk": 7,
+          "jumlah_pengguna": 9,
+          "rata_rating": 4.33
+        },
+        {
+          "periode": "2023-08",
+          "jumlah_ulasan": 5,
+          "pangsa_ulasan": 9.09,
+          "jumlah_produk": 4,
+          "jumlah_pengguna": 5,
+          "rata_rating": 3.37
+        }
+      ]
+    },
+    "dress": {
+      "status": "DATA TERBATAS",
+      "kualitas_data": "RENDAH",
+      "pangsa_ulasan_terbaru": 5.89,
+      "pangsa_ulasan_sebelumnya": 8.71,
+      "perubahan_pangsa_pp": -2.82,
+      "pertumbuhan_pangsa_persen": -32.36,
+      "slope_pangsa_6_bulan": -1.08,
+      "jumlah_ulasan_terbaru": 23,
+      "rata_rating": 3.76,
+      "produk_aktif": 9,
+      "pengguna_aktif": 14,
+      "peringkat_popularitas": 6,
+      "peringkat_pertumbuhan": null,
+      "history": [
+        {
+          "periode": "2022-09",
+          "jumlah_ulasan": 27,
+          "pangsa_ulasan": 8.68,
+          "jumlah_produk": 18,
+          "jumlah_pengguna": 27,
+          "rata_rating": 3.08
+        },
+        {
+          "periode": "2022-10",
+          "jumlah_ulasan": 26,
+          "pangsa_ulasan": 8.0,
+          "jumlah_produk": 16,
+          "jumlah_pengguna": 26,
+          "rata_rating": 3.26
+        },
+        {
+          "periode": "2022-11",
+          "jumlah_ulasan": 32,
+          "pangsa_ulasan": 9.3,
+          "jumlah_produk": 18,
+          "jumlah_pengguna": 32,
+          "rata_rating": 3.6
+        },
+        {
+          "periode": "2022-12",
+          "jumlah_ulasan": 40,
+          "pangsa_ulasan": 10.44,
+          "jumlah_produk": 18,
+          "jumlah_pengguna": 35,
+          "rata_rating": 3.83
+        },
+        {
+          "periode": "2023-01",
+          "jumlah_ulasan": 34,
+          "pangsa_ulasan": 8.4,
+          "jumlah_produk": 20,
+          "jumlah_pengguna": 33,
+          "rata_rating": 3.82
+        },
+        {
+          "periode": "2023-02",
+          "jumlah_ulasan": 26,
+          "pangsa_ulasan": 7.49,
+          "jumlah_produk": 16,
+          "jumlah_pengguna": 26,
+          "rata_rating": 3.83
+        },
+        {
+          "periode": "2023-03",
+          "jumlah_ulasan": 40,
+          "pangsa_ulasan": 10.2,
+          "jumlah_produk": 20,
+          "jumlah_pengguna": 36,
+          "rata_rating": 3.76
+        },
+        {
+          "periode": "2023-04",
+          "jumlah_ulasan": 25,
+          "pangsa_ulasan": 7.6,
+          "jumlah_produk": 14,
+          "jumlah_pengguna": 25,
+          "rata_rating": 3.64
+        },
+        {
+          "periode": "2023-05",
+          "jumlah_ulasan": 23,
+          "pangsa_ulasan": 8.33,
+          "jumlah_produk": 12,
+          "jumlah_pengguna": 22,
+          "rata_rating": 3.7
+        },
+        {
+          "periode": "2023-06",
+          "jumlah_ulasan": 14,
+          "pangsa_ulasan": 7.95,
+          "jumlah_produk": 9,
+          "jumlah_pengguna": 14,
+          "rata_rating": 3.61
+        },
+        {
+          "periode": "2023-07",
+          "jumlah_ulasan": 7,
+          "pangsa_ulasan": 6.09,
+          "jumlah_produk": 7,
+          "jumlah_pengguna": 7,
+          "rata_rating": 3.74
+        },
+        {
+          "periode": "2023-08",
+          "jumlah_ulasan": 2,
+          "pangsa_ulasan": 3.64,
+          "jumlah_produk": 1,
+          "jumlah_pengguna": 1,
+          "rata_rating": 4.88
+        }
+      ]
+    },
+    "skirt": {
+      "status": "DATA TERBATAS",
+      "kualitas_data": "RENDAH",
+      "pangsa_ulasan_terbaru": 3.9,
+      "pangsa_ulasan_sebelumnya": 1.66,
+      "perubahan_pangsa_pp": 2.24,
+      "pertumbuhan_pangsa_persen": 135.34,
+      "slope_pangsa_6_bulan": 0.67,
+      "jumlah_ulasan_terbaru": 13,
+      "rata_rating": 1.96,
+      "produk_aktif": 4,
+      "pengguna_aktif": 5,
+      "peringkat_popularitas": 7,
+      "peringkat_pertumbuhan": null,
+      "history": [
+        {
+          "periode": "2022-09",
+          "jumlah_ulasan": 3,
+          "pangsa_ulasan": 0.96,
+          "jumlah_produk": 3,
+          "jumlah_pengguna": 3,
+          "rata_rating": 4.02
+        },
+        {
+          "periode": "2022-10",
+          "jumlah_ulasan": 3,
+          "pangsa_ulasan": 0.92,
+          "jumlah_produk": 3,
+          "jumlah_pengguna": 3,
+          "rata_rating": 4.04
+        },
+        {
+          "periode": "2022-11",
+          "jumlah_ulasan": 3,
+          "pangsa_ulasan": 0.87,
+          "jumlah_produk": 3,
+          "jumlah_pengguna": 3,
+          "rata_rating": 3.97
+        },
+        {
+          "periode": "2022-12",
+          "jumlah_ulasan": 2,
+          "pangsa_ulasan": 0.52,
+          "jumlah_produk": 2,
+          "jumlah_pengguna": 2,
+          "rata_rating": 3.54
+        },
+        {
+          "periode": "2023-01",
+          "jumlah_ulasan": 3,
+          "pangsa_ulasan": 0.74,
+          "jumlah_produk": 2,
+          "jumlah_pengguna": 3,
+          "rata_rating": 3.26
+        },
+        {
+          "periode": "2023-02",
+          "jumlah_ulasan": 2,
+          "pangsa_ulasan": 0.58,
+          "jumlah_produk": 1,
+          "jumlah_pengguna": 2,
+          "rata_rating": 2.36
+        },
+        {
+          "periode": "2023-03",
+          "jumlah_ulasan": 5,
+          "pangsa_ulasan": 1.28,
+          "jumlah_produk": 4,
+          "jumlah_pengguna": 5,
+          "rata_rating": 1.78
+        },
+        {
+          "periode": "2023-04",
+          "jumlah_ulasan": 5,
+          "pangsa_ulasan": 1.52,
+          "jumlah_produk": 5,
+          "jumlah_pengguna": 5,
+          "rata_rating": 2.02
+        },
+        {
+          "periode": "2023-05",
+          "jumlah_ulasan": 6,
+          "pangsa_ulasan": 2.17,
+          "jumlah_produk": 5,
+          "jumlah_pengguna": 6,
+          "rata_rating": 2.07
+        },
+        {
+          "periode": "2023-06",
+          "jumlah_ulasan": 5,
+          "pangsa_ulasan": 2.84,
+          "jumlah_produk": 4,
+          "jumlah_pengguna": 5,
+          "rata_rating": 1.9
+        },
+        {
+          "periode": "2023-07",
+          "jumlah_ulasan": 6,
+          "pangsa_ulasan": 5.22,
+          "jumlah_produk": 4,
+          "jumlah_pengguna": 5,
+          "rata_rating": 1.84
+        },
+        {
+          "periode": "2023-08",
+          "jumlah_ulasan": 2,
+          "pangsa_ulasan": 3.64,
+          "jumlah_produk": 1,
+          "jumlah_pengguna": 2,
+          "rata_rating": 2.48
+        }
+      ]
+    },
+    "shoes": {
+      "status": "DATA TERBATAS",
+      "kualitas_data": "RENDAH",
+      "pangsa_ulasan_terbaru": 2.23,
+      "pangsa_ulasan_sebelumnya": 3.83,
+      "perubahan_pangsa_pp": -1.6,
+      "pertumbuhan_pangsa_persen": -41.69,
+      "slope_pangsa_6_bulan": -0.52,
+      "jumlah_ulasan_terbaru": 8,
+      "rata_rating": 4.06,
+      "produk_aktif": 4,
+      "pengguna_aktif": 4,
+      "peringkat_popularitas": 8,
+      "peringkat_pertumbuhan": null,
+      "history": [
+        {
+          "periode": "2022-09",
+          "jumlah_ulasan": 12,
+          "pangsa_ulasan": 3.86,
+          "jumlah_produk": 10,
+          "jumlah_pengguna": 12,
+          "rata_rating": 3.78
+        },
+        {
+          "periode": "2022-10",
+          "jumlah_ulasan": 11,
+          "pangsa_ulasan": 3.38,
+          "jumlah_produk": 9,
+          "jumlah_pengguna": 11,
+          "rata_rating": 3.79
+        },
+        {
+          "periode": "2022-11",
+          "jumlah_ulasan": 14,
+          "pangsa_ulasan": 4.07,
+          "jumlah_produk": 10,
+          "jumlah_pengguna": 14,
+          "rata_rating": 4.03
+        },
+        {
+          "periode": "2022-12",
+          "jumlah_ulasan": 18,
+          "pangsa_ulasan": 4.7,
+          "jumlah_produk": 13,
+          "jumlah_pengguna": 18,
+          "rata_rating": 4.31
+        },
+        {
+          "periode": "2023-01",
+          "jumlah_ulasan": 18,
+          "pangsa_ulasan": 4.44,
+          "jumlah_produk": 12,
+          "jumlah_pengguna": 18,
+          "rata_rating": 3.98
+        },
+        {
+          "periode": "2023-02",
+          "jumlah_ulasan": 16,
+          "pangsa_ulasan": 4.61,
+          "jumlah_produk": 12,
+          "jumlah_pengguna": 16,
+          "rata_rating": 4.24
+        },
+        {
+          "periode": "2023-03",
+          "jumlah_ulasan": 17,
+          "pangsa_ulasan": 4.34,
+          "jumlah_produk": 12,
+          "jumlah_pengguna": 17,
+          "rata_rating": 4.19
+        },
+        {
+          "periode": "2023-04",
+          "jumlah_ulasan": 14,
+          "pangsa_ulasan": 4.26,
+          "jumlah_produk": 11,
+          "jumlah_pengguna": 14,
+          "rata_rating": 4.08
+        },
+        {
+          "periode": "2023-05",
+          "jumlah_ulasan": 8,
+          "pangsa_ulasan": 2.9,
+          "jumlah_produk": 7,
+          "jumlah_pengguna": 7,
+          "rata_rating": 3.29
+        },
+        {
+          "periode": "2023-06",
+          "jumlah_ulasan": 4,
+          "pangsa_ulasan": 2.27,
+          "jumlah_produk": 4,
+          "jumlah_pengguna": 4,
+          "rata_rating": 4.3
+        },
+        {
+          "periode": "2023-07",
+          "jumlah_ulasan": 3,
+          "pangsa_ulasan": 2.61,
+          "jumlah_produk": 3,
+          "jumlah_pengguna": 3,
+          "rata_rating": 4.03
+        },
+        {
+          "periode": "2023-08",
+          "jumlah_ulasan": 1,
+          "pangsa_ulasan": 1.82,
+          "jumlah_produk": 1,
+          "jumlah_pengguna": 1,
+          "rata_rating": 3.15
+        }
+      ]
+    }
+  }
+}
