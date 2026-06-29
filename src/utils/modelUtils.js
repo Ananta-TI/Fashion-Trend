@@ -9,8 +9,8 @@ export async function predictFashion({ imageFile }) {
   const formData = new FormData();
   formData.append("file", imageFile); // API Flask sekarang menerima key 'file'
 
-  const response = await fetch("http://localhost:8000/api/predict", {
-    method: "POST",
+fetch("https://entiei-fashion-trend-backend.hf.space/api/predict", {
+      method: "POST",
     body: formData,
   });
 
