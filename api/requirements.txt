@@ -1,6 +1,6 @@
 flask
 flask-cors
-onnxruntime
+tensorflow-cpu==2.16.1
 pillow
 pandas
 numpy
