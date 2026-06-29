@@ -1,10 +1,8 @@
 import { useState } from "react";
 import { Upload, Brain, Image as ImageIcon, Loader2, AlertTriangle } from "lucide-react";
-// Sesuai dengan import asli kodemu
 import ResultCard from "./ResultCard"; 
 
 export default function Model3Flask() {
-  // === LOGIC MURNI 100% DARI KODE ASLIMU ===
   const [selectedImage, setSelectedImage] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
@@ -31,74 +29,68 @@ export default function Model3Flask() {
     formData.append("file", selectedImage); 
 
     try {
-      // Sesuaikan URL ini dengan API Python-mu
-      // const response = await fetch("http://localhost:8000/api/predict", {
-      const response = await fetch("/api/predict", {
-          method: "POST",
+      // === KITA TEMBAK KE SERVER BACKEND PYTHON ASLI DI RENDER ===
+      // Ganti URL ini setelah backend Render-mu selesai dibuat
+      const response = await fetch("https://fashion-trend-backend.onrender.com/api/predict", {
+        method: "POST",
         body: formData,
       });
 
       if (!response.ok) {
-        throw new Error("Gagal terhubung ke server Flask");
+        throw new Error("Gagal terhubung ke server cloud Flask");
       }
 
       const data = await response.json();
       
-      // Map data dari API Python agar sesuai dengan format ResultCard.jsx
       setResult({
         kategori: data.kategori,
         confidence: data.confidence,
         trendLabel: data.trend_label, 
         trendConfidence: data.trend_confidence,
         forecastCategory: data.forecast_category,
-        chartUrl: data.chart_url
+        chartUrl: data.chart_url.replace("http://localhost:8000", "https://fashion-trend-backend.onrender.com")
       });
     } catch (err) {
       console.error(err);
-      setError("Terjadi kesalahan saat menganalisis gambar. Pastikan server Flask menyala.");
+      setError("Terjadi kesalahan saat menganalisis gambar. Pastikan server Flask di cloud aktif.");
     } finally {
       setIsAnalyzing(false);
     }
   };
 
-  // === STRUKTUR LAYOUT & TAMPILAN MENGIKUTI MODEL 1 ===
   return (
     <section className="relative overflow-hidden rounded-xl border border-[#e6d5a8] bg-[#fffaeb] p-5 shadow-sm md:p-8">
-      {/* Background Ornamen Gradasi Kuning-Oranye */}
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(250,82,15,0.16),transparent_30%),radial-gradient(circle_at_bottom_right,rgba(255,217,0,0.24),transparent_35%)]" />
 
-      {/* Header Info Model */}
       <div className="mb-8 grid gap-6 lg:grid-cols-[1fr_0.6fr] lg:items-end">
         <div>
           <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#e6d5a8] bg-white px-4 py-2 text-sm font-medium text-[#fa520f]">
-            <Brain size={16} /> Backend Server (Flask API)
+            <Brain size={16} /> Dedicated Python Backend
           </div>
           <h1 className="font-serif text-3xl leading-tight tracking-[-0.8px] text-[#1f1f1f] md:text-5xl">
             Arsitektur Model 3
           </h1>
           <p className="mt-4 max-w-2xl leading-7 text-[#4a4a4a]">
-            Memproses gambar di sisi server menggunakan Python Flask. Sempurna untuk menangani model berskala besar dan komputasi analitik intensif.
+            Memproses gambar di sisi server menggunakan Python Flask asli. Menghitung data tren historis dari CSV secara berkala.
           </p>
         </div>
 
-        {/* Informasi Status Server */}
         <div className="rounded-xl border border-[#e6d5a8] bg-white p-5">
           <div className="flex items-center justify-between">
             <span className="text-sm text-[#6a6a6a]">Model Status</span>
-            <span className="text-emerald-600 font-medium">Standby (Server)</span>
+            <span className="text-emerald-600 font-medium">Online (Render Cloud)</span>
           </div>
           <div className="mt-3 flex items-center justify-between">
             <span className="text-sm text-[#6a6a6a]">Environment</span>
-            <span className="font-semibold text-[#1f1f1f]">Python API</span>
+            <span className="font-semibold text-[#1f1f1f]">Python Flask</span>
           </div>
           <div className="mt-3 flex items-center justify-between">
             <span className="text-sm text-[#6a6a6a]">Execution</span>
-            <span className="font-semibold text-[#1f1f1f]">Remote Request</span>
+            <span className="font-semibold text-[#1f1f1f]">Cloud Request</span>
           </div>
         </div>
       </div>
 
-      {/* Alert Error */}
       {error && (
         <div className="mb-6 flex items-start gap-3 rounded-xl border border-red-300 bg-red-50 p-4 text-red-700">
           <AlertTriangle className="mt-0.5 shrink-0" size={20} />
@@ -106,22 +98,18 @@ export default function Model3Flask() {
         </div>
       )}
 
-      {/* Area Utama: Kiri Upload, Kanan Hasil */}
       <div className="grid gap-6 lg:grid-cols-[1fr_1fr]">
-        
-        {/* Box Input / Upload */}
         <div className="rounded-xl border border-[#e6d5a8] bg-white p-5 shadow-[0_4px_12px_rgba(0,0,0,0.04)] md:p-6">
           <div className="mb-5 flex items-center gap-3">
             <div className="rounded-lg border border-[#e6d5a8] bg-[#fff8e0] p-3 text-[#fa520f]">
               <Upload size={24} />
             </div>
             <div>
-              <h2 className="text-xl font-semibold text-[#1f1f1f]">Upload Gambar (Flask)</h2>
+              <h2 className="text-xl font-semibold text-[#1f1f1f]">Upload Gambar</h2>
               <p className="text-sm text-[#6a6a6a]">Format JPG, PNG, atau WEBP.</p>
             </div>
           </div>
 
-          {/* Area Drag / Preview Gambar */}
           <label className="flex min-h-80 cursor-pointer flex-col items-center justify-center rounded-xl border border-dashed border-[#c7c7c7] bg-[#fafafa] p-6 text-center transition hover:border-[#fa520f]">
             {!previewUrl ? (
               <>
@@ -138,7 +126,6 @@ export default function Model3Flask() {
             <input type="file" accept="image/*" onChange={handleImageChange} className="hidden" />
           </label>
 
-          {/* Tombol Eksekusi Prediksi */}
           <button
             onClick={handleAnalyze}
             disabled={!previewUrl || isAnalyzing}
@@ -152,7 +139,6 @@ export default function Model3Flask() {
           </button>
         </div>
 
-        {/* Box Kanan: Menampilkan Hasil Analisis Melalui Komponen ResultCard */}
         <ResultCard result={result} />
       </div>
     </section>
