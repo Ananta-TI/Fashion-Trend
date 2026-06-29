@@ -21,19 +21,23 @@ CORS(app)
 # ==========================================
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# Jika berada di dalam folder 'api', naik satu tingkat ke root container (/code)
 if os.path.basename(CURRENT_DIR) == "api":
     BASE_DIR = os.path.dirname(CURRENT_DIR)
 else:
     BASE_DIR = CURRENT_DIR
 
-MODEL_DIR = os.path.join(BASE_DIR, "public", "models", "fashion")
-DATA_DIR = os.path.join(BASE_DIR, "public", "data")
-UPLOAD_DIR = "/tmp/uploads"
-CHART_DIR = "/tmp/charts"
-
-os.makedirs(UPLOAD_DIR, exist_ok=True)
-os.makedirs(CHART_DIR, exist_ok=True)
+# --- DEBUGGING PRINT (Biar kelihatan di log Hugging Face isi filemu apa saja) ---
+print("====== CEK ISI FOLDER CONTAINER ======")
+print("BASE_DIR:", BASE_DIR)
+try:
+    print("Isi root (/code):", os.listdir(BASE_DIR))
+    if os.path.exists(os.path.join(BASE_DIR, "public")):
+        print("Isi public/ :", os.listdir(os.path.join(BASE_DIR, "public")))
+        if os.path.exists(os.path.join(BASE_DIR, "public", "models")):
+            print("Isi public/models/ :", os.listdir(os.path.join(BASE_DIR, "public", "models")))
+except Exception as e:
+    print("Gagal melacak folder:", e)
+print("======================================")
 
 MODEL_DIR = os.path.join(BASE_DIR, "public", "models", "fashion")
 DATA_DIR = os.path.join(BASE_DIR, "public", "data")
@@ -52,6 +56,19 @@ CLASS_INDICES_PATH = os.path.join(MODEL_DIR, "class_indices.json")
 SCALER_PATH = os.path.join(MODEL_DIR, "scaler_forecasting.pkl")
 FORECAST_CONFIG_PATH = os.path.join(MODEL_DIR, "forecast_config.json")
 TREND_DATA_PATH = os.path.join(DATA_DIR, "data_tren_produk.csv")
+
+# Load Model & Metadata
+print("⏳ Memuat model Klasifikasi & Forecasting...")
+
+# Tambahkan proteksi cek file sebelum load
+if not os.path.exists(IMAGE_MODEL_PATH):
+    print(f"❌ ERROR KRITIKAL: File tidak ada di path: {IMAGE_MODEL_PATH}")
+    print(f"Coba cek isi folder fashion kamu, apakah kosong?")
+    if os.path.exists(MODEL_DIR):
+        print("Isi folder fashion saat ini:", os.listdir(MODEL_DIR))
+
+image_model = load_model(IMAGE_MODEL_PATH)
+forecast_model = load_model(FORECAST_MODEL_PATH)
 
 # Load Model & Metadata
 print("⏳ Memuat model Klasifikasi & Forecasting...")
