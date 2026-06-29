@@ -31,7 +31,7 @@ export default function Model3Flask() {
     try {
       // === KITA TEMBAK KE SERVER BACKEND PYTHON ASLI DI RENDER ===
       // Ganti URL ini setelah backend Render-mu selesai dibuat
-      const response = await fetch("https://fashion-trend-backend.onrender.com/api/predict", {
+const response = await fetch("https://entiei-fashion-trend-backend.hf.space/api/predict", {
         method: "POST",
         body: formData,
       });
