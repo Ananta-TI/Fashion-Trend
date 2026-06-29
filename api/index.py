@@ -19,18 +19,24 @@ CORS(app)
 # ==========================================
 # KONFIGURASI FOLDER UNTUK HUGGING FACE DOCKER
 # ==========================================
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# Mencari folder public secara fleksibel baik di dalam folder api maupun di root
-if os.path.exists(os.path.join(BASE_DIR, "public")):
-    ROOT_DIR = BASE_DIR
-elif os.path.exists(os.path.join(os.path.dirname(BASE_DIR), "public")):
-    ROOT_DIR = os.path.dirname(BASE_DIR)
+# Jika berada di dalam folder 'api', naik satu tingkat ke root container (/code)
+if os.path.basename(CURRENT_DIR) == "api":
+    BASE_DIR = os.path.dirname(CURRENT_DIR)
 else:
-    ROOT_DIR = BASE_DIR
+    BASE_DIR = CURRENT_DIR
 
-MODEL_DIR = os.path.join(ROOT_DIR, "public", "models", "fashion")
-DATA_DIR = os.path.join(ROOT_DIR, "public", "data")
+MODEL_DIR = os.path.join(BASE_DIR, "public", "models", "fashion")
+DATA_DIR = os.path.join(BASE_DIR, "public", "data")
+UPLOAD_DIR = "/tmp/uploads"
+CHART_DIR = "/tmp/charts"
+
+os.makedirs(UPLOAD_DIR, exist_ok=True)
+os.makedirs(CHART_DIR, exist_ok=True)
+
+MODEL_DIR = os.path.join(BASE_DIR, "public", "models", "fashion")
+DATA_DIR = os.path.join(BASE_DIR, "public", "data")
 UPLOAD_DIR = "/tmp/uploads"
 CHART_DIR = "/tmp/charts"
 
