@@ -1,9 +1,8 @@
 flask
 flask-cors
-tensorflow
+tensorflow-cpu
 pillow
 pandas
 numpy
 matplotlib
 werkzeug
-gunicorn
