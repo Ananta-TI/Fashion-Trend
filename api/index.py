@@ -11,7 +11,20 @@ from PIL import Image
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
+
+import tensorflow as tf
 from tensorflow.keras.models import load_model
+
+# ===================================================================
+# TRIK ANTI-CRASH: Hapus parameter quantization_config secara dinamis
+# ===================================================================
+@tf.keras.utils.register_keras_serializable(package="Custom")
+class SafeDense(tf.keras.layers.Dense):
+    @classmethod
+    def from_config(cls, config):
+        # Buang argumen penyebab crash jika tidak sengaja terbaca dari .h5 lama
+        config.pop('quantization_config', None)
+        return super().from_config(config)
 
 app = Flask(__name__)
 CORS(app) 
@@ -26,7 +39,6 @@ if os.path.basename(CURRENT_DIR) == "api":
 else:
     BASE_DIR = CURRENT_DIR
 
-# Langsung menembak folder utama di Hugging Face root
 MODEL_DIR = os.path.join(BASE_DIR, "models", "fashion")
 DATA_DIR = os.path.join(BASE_DIR, "data")
 UPLOAD_DIR = "/tmp/uploads"
@@ -45,12 +57,16 @@ SCALER_PATH = os.path.join(MODEL_DIR, "scaler_forecasting.pkl")
 FORECAST_CONFIG_PATH = os.path.join(MODEL_DIR, "forecast_config.json")
 TREND_DATA_PATH = os.path.join(DATA_DIR, "data_tren_produk.csv")
 
-# =========================
-# LOAD MODEL & METADATA
-# =========================
+# =============================================================
+# LOAD MODEL & METADATA (Dijejali custom_objects penjinak)
+# =============================================================
 print("⏳ Memuat model Klasifikasi & Forecasting...")
-image_model = load_model(IMAGE_MODEL_PATH)
-forecast_model = load_model(FORECAST_MODEL_PATH)
+
+# Memaksa Keras mengalihkan penciptaan layer 'Dense' ke 'SafeDense' bikinan kita
+custom_objects = {"Dense": SafeDense}
+
+image_model = load_model(IMAGE_MODEL_PATH, custom_objects=custom_objects, compile=False)
+forecast_model = load_model(FORECAST_MODEL_PATH, custom_objects=custom_objects, compile=False)
 
 with open(CLASS_INDICES_PATH, "r") as f:
     class_indices = json.load(f)
