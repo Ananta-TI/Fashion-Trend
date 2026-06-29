@@ -17,13 +17,20 @@ app = Flask(__name__)
 CORS(app) 
 
 # ==========================================
-# KONFIGURASI FOLDER UNTUK VERCEL SERVERLESS
+# KONFIGURASI FOLDER UNTUK HUGGING FACE DOCKER
 # ==========================================
-# Vercel hanya mengizinkan penulisan file sementara di folder /tmp
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-MODEL_DIR = os.path.join(BASE_DIR, "public", "models", "fashion")
-DATA_DIR = os.path.join(BASE_DIR, "public", "data")
+# Mencari folder public secara fleksibel baik di dalam folder api maupun di root
+if os.path.exists(os.path.join(BASE_DIR, "public")):
+    ROOT_DIR = BASE_DIR
+elif os.path.exists(os.path.join(os.path.dirname(BASE_DIR), "public")):
+    ROOT_DIR = os.path.dirname(BASE_DIR)
+else:
+    ROOT_DIR = BASE_DIR
+
+MODEL_DIR = os.path.join(ROOT_DIR, "public", "models", "fashion")
+DATA_DIR = os.path.join(ROOT_DIR, "public", "data")
 UPLOAD_DIR = "/tmp/uploads"
 CHART_DIR = "/tmp/charts"
 
@@ -154,12 +161,9 @@ def create_trend_chart(series_df, chart_title):
     plt.savefig(chart_path)
     plt.close()
 
-    # Menggunakan relative path agar fleksibel saat live di Vercel
-    return f"/api/charts/{chart_filename}"
+    # Menggunakan URL absolut mengarah ke space Hugging Face kamu
+    return f"https://entiei-fashion-trend-backend.hf.space/api/charts/{chart_filename}"
 
-# ==========================================
-# UBAH ROUTE UTAMA AGAR COCOK DENGAN VERCEL
-# ==========================================
 @app.route("/api/predict", methods=["POST"])
 def predict():
     if "file" not in request.files:
@@ -212,6 +216,5 @@ def predict():
 def serve_chart(filename):
     return send_from_directory(CHART_DIR, filename)
 
-# Ini wajib dihapus atau dibiarkan saja karena Vercel menggunakan WSGI handler-nya sendiri
 if __name__ == "__main__":
-    app.run(port=8000, debug=True)
+    app.run(host="0.0.0.0", port=7860, debug=True)
