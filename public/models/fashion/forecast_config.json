@@ -1,0 +1,7 @@
+{
+  "look_back": 14,
+  "horizon": 1,
+  "threshold": 0.05,
+  "label_mapping": { "Turun": 0, "Stabil": 1, "Naik": 2 },
+  "reverse_label_mapping": { "0": "Turun", "1": "Stabil", "2": "Naik" }
+}

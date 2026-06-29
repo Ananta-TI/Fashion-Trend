@@ -7,7 +7,6 @@ export default function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
-
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/predict" element={<PredictorPage />} />

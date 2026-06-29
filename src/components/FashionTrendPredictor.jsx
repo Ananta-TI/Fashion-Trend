@@ -1,9 +1,4 @@
-import {
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-
+import { useEffect, useRef, useState } from "react";
 import {
   AlertTriangle,
   Brain,
@@ -19,92 +14,39 @@ import {
   Upload,
   X,
 } from "lucide-react";
-
 import ResultCard from "./ResultCard";
+import { predictFashion } from "../utils/modelUtils";
 
-import {
-  loadFashionModel,
-  predictFashion,
-} from "../utils/modelUtils";
-
-const MAX_FILE_SIZE = 10 * 1024 * 1024;
+const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10 MB
 
 export default function FashionTrendPredictor() {
-  const imageRef = useRef(null);
   const inputRef = useRef(null);
 
-  const [model, setModel] = useState(null);
-  const [classNames, setClassNames] = useState([]);
-  const [trendData, setTrendData] = useState(null);
-  const [trendMeta, setTrendMeta] = useState(null);
-  const [inputSize, setInputSize] = useState(224);
-
+  // State untuk menyimpan gambar
   const [preview, setPreview] = useState("");
   const [fileName, setFileName] = useState("");
-  const [imageReady, setImageReady] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null); // Menyimpan objek File asli untuk dikirim ke API
   const [result, setResult] = useState(null);
 
-  const [loadingModel, setLoadingModel] = useState(true);
+  // State untuk status UI
+  const [isApiReady, setIsApiReady] = useState(false);
   const [predicting, setPredicting] = useState(false);
   const [error, setError] = useState("");
 
+  // Simulasi inisialisasi komponen (karena model sekarang dihandle di backend)
   useEffect(() => {
-    let active = true;
-
-    async function initModel() {
-      try {
-        setLoadingModel(true);
-        setError("");
-
-        const resources = await loadFashionModel();
-
-        if (!active) return;
-
-        setModel(resources.model);
-        setClassNames(resources.classNames);
-        setTrendData(resources.trendData);
-        setTrendMeta(resources.trendMeta);
-        setInputSize(resources.inputSize);
-      } catch (err) {
-        console.error("Gagal memuat resource:", err);
-
-        if (!active) return;
-
-        setError(
-          err instanceof Error
-            ? err.message
-            : "Model atau data tren gagal dimuat.",
-        );
-      } finally {
-        if (active) {
-          setLoadingModel(false);
-        }
-      }
-    }
-
-    initModel();
-
+    setIsApiReady(true);
     return () => {
-      active = false;
-    };
-  }, []);
-
-  useEffect(() => {
-    return () => {
-      if (preview) {
-        URL.revokeObjectURL(preview);
-      }
+      if (preview) URL.revokeObjectURL(preview);
     };
   }, [preview]);
 
   function resetImage() {
-    if (preview) {
-      URL.revokeObjectURL(preview);
-    }
-
+    if (preview) URL.revokeObjectURL(preview);
+    
     setPreview("");
     setFileName("");
-    setImageReady(false);
+    setSelectedFile(null);
     setResult(null);
     setError("");
 
@@ -136,19 +78,14 @@ export default function FashionTrendPredictor() {
 
     setPreview(imageUrl);
     setFileName(file.name);
-    setImageReady(false);
+    setSelectedFile(file); // Simpan file untuk FormData
     setResult(null);
     setError("");
   }
 
   async function handlePredict() {
-    if (!model) {
-      setError("Model belum selesai dimuat.");
-      return;
-    }
-
-    if (!imageRef.current || !imageReady) {
-      setError("Gambar belum selesai dimuat.");
+    if (!selectedFile) {
+      setError("Silakan pilih gambar terlebih dahulu.");
       return;
     }
 
@@ -157,40 +94,25 @@ export default function FashionTrendPredictor() {
       setResult(null);
       setError("");
 
+      // Kirim gambar ke Flask API via modelUtils
       const predictionResult = await predictFashion({
-        model,
-        imageElement: imageRef.current,
-        inputSize,
-        classNames,
-        trendData,
-        trendMeta,
+        imageFile: selectedFile,
       });
 
       setResult(predictionResult);
     } catch (err) {
       console.error("Analisis gagal:", err);
-
       setError(
         err instanceof Error
           ? err.message
-          : "Analisis produk gagal dijalankan.",
+          : "Analisis produk gagal dijalankan. Pastikan server Flask menyala."
       );
     } finally {
       setPredicting(false);
     }
   }
 
-  const modelReady = Boolean(model) && !loadingModel;
-
-  const modelStatus = loadingModel
-    ? "Memuat model"
-    : model
-      ? "Model siap"
-      : "Model gagal";
-
-  const trendCategoryCount = Object.keys(
-    trendData?.categories ?? {},
-  ).length;
+  const modelStatus = isApiReady ? "API Flask Siap" : "Menyiapkan UI";
 
   return (
     <section className="relative overflow-hidden rounded-[28px] border border-[#eadbb5] bg-[#fffaf0] shadow-[0_24px_80px_rgba(54,38,17,0.09)]">
@@ -201,7 +123,7 @@ export default function FashionTrendPredictor() {
           <div className="max-w-3xl">
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#f0dcb0] bg-white/80 px-3.5 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-[#e74a10] shadow-sm backdrop-blur">
               <ScanSearch size={15} />
-              CNN Classification & Trend Analysis
+              CNN Classification & Trend Forecasting
             </div>
 
             <h1 className="max-w-3xl font-serif text-4xl leading-[0.98] tracking-[-0.04em] text-[#181818] sm:text-5xl lg:text-6xl">
@@ -209,36 +131,31 @@ export default function FashionTrendPredictor() {
             </h1>
 
             <p className="mt-5 max-w-2xl text-sm leading-7 text-[#666057] md:text-base">
-              EfficientNet-B0 mengenali kategori produk, lalu sistem
-              menghubungkannya dengan data tren historis berdasarkan
-              pangsa aktivitas ulasan.
+              Model CNN (.h5) di server mengenali kategori produk, lalu sistem melakukan peramalan (forecasting) menggunakan data tren historis.
             </p>
           </div>
 
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 xl:w-[560px]">
             <InfoCard
-              icon={modelReady ? CheckCircle2 : Cpu}
+              icon={isApiReady ? CheckCircle2 : Cpu}
               label="Status"
               value={modelStatus}
-              active={modelReady}
+              active={isApiReady}
             />
-
             <InfoCard
               icon={Layers3}
-              label="Kelas CNN"
-              value={classNames.length || "-"}
+              label="Arsitektur"
+              value="Python API"
             />
-
             <InfoCard
               icon={Database}
-              label="Kategori tren"
-              value={trendCategoryCount || "-"}
+              label="Forecasting"
+              value="Aktif"
             />
-
             <InfoCard
               icon={FileImage}
               label="Input model"
-              value={`${inputSize}²`}
+              value="128x128"
             />
           </div>
         </div>
@@ -250,11 +167,7 @@ export default function FashionTrendPredictor() {
             className="mb-5 flex items-start gap-3 rounded-2xl border border-red-200 bg-red-50 px-4 py-3.5 text-sm text-red-700"
             role="alert"
           >
-            <AlertTriangle
-              className="mt-0.5 shrink-0"
-              size={19}
-            />
-
+            <AlertTriangle className="mt-0.5 shrink-0" size={19} />
             <p className="leading-6">{error}</p>
           </div>
         )}
@@ -272,7 +185,6 @@ export default function FashionTrendPredictor() {
                     <h2 className="font-semibold text-[#1d1d1d]">
                       Gambar produk
                     </h2>
-
                     <p className="text-xs text-[#847e74]">
                       JPG, PNG, WEBP · Maks. 10 MB
                     </p>
@@ -316,15 +228,10 @@ export default function FashionTrendPredictor() {
                   ) : (
                     <>
                       <img
-                        ref={imageRef}
                         src={preview}
                         alt="Preview produk fashion"
                         className="h-full max-h-[480px] w-full object-contain p-4"
-                        onLoad={() => setImageReady(true)}
-                        onError={() => {
-                          setImageReady(false);
-                          setError("Gambar gagal dimuat.");
-                        }}
+                        onError={() => setError("Gambar gagal dimuat.")}
                       />
 
                       <div className="absolute inset-x-3 bottom-3 flex items-center justify-between gap-3 rounded-xl border border-white/40 bg-black/65 px-3 py-2.5 text-white backdrop-blur-md">
@@ -332,16 +239,12 @@ export default function FashionTrendPredictor() {
                           <p className="truncate text-xs font-medium">
                             {fileName}
                           </p>
-
                           <p className="mt-0.5 text-[11px] text-white/65">
                             Klik gambar untuk mengganti file
                           </p>
                         </div>
 
-                        <RefreshCcw
-                          className="shrink-0"
-                          size={16}
-                        />
+                        <RefreshCcw className="shrink-0" size={16} />
                       </div>
                     </>
                   )}
@@ -358,22 +261,13 @@ export default function FashionTrendPredictor() {
                 <button
                   type="button"
                   onClick={handlePredict}
-                  disabled={
-                    !preview ||
-                    !imageReady ||
-                    loadingModel ||
-                    predicting ||
-                    !model
-                  }
+                  disabled={!preview || predicting}
                   className="mt-4 flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[linear-gradient(135deg,#fa520f,#ff7a18)] px-5 py-3.5 font-semibold text-white shadow-[0_12px_28px_rgba(250,82,15,0.25)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_34px_rgba(250,82,15,0.32)] disabled:translate-y-0 disabled:cursor-not-allowed disabled:bg-[#e6e3dd] disabled:text-[#aaa49b] disabled:shadow-none"
                 >
                   {predicting ? (
                     <>
-                      <Loader2
-                        className="animate-spin"
-                        size={19}
-                      />
-                      Menganalisis produk...
+                      <Loader2 className="animate-spin" size={19} />
+                      Menganalisis di Server...
                     </>
                   ) : (
                     <>
@@ -386,14 +280,9 @@ export default function FashionTrendPredictor() {
                 <div className="mt-4 flex items-center justify-center gap-2 text-xs text-[#918a80]">
                   <span
                     className={`h-2 w-2 rounded-full ${
-                      modelReady
-                        ? "bg-emerald-500"
-                        : loadingModel
-                          ? "animate-pulse bg-amber-400"
-                          : "bg-red-500"
+                      isApiReady ? "bg-emerald-500" : "bg-amber-400 animate-pulse"
                     }`}
                   />
-
                   {modelStatus}
                 </div>
               </div>
@@ -409,20 +298,13 @@ export default function FashionTrendPredictor() {
   );
 }
 
-function InfoCard({
-  icon: Icon,
-  label,
-  value,
-  active = false,
-}) {
+function InfoCard({ icon: Icon, label, value, active = false }) {
   return (
     <div className="rounded-2xl border border-[#eadfca] bg-white/80 p-3.5 shadow-sm backdrop-blur md:p-4">
       <div className="flex items-center justify-between">
         <span
           className={`grid h-8 w-8 place-items-center rounded-lg ${
-            active
-              ? "bg-emerald-50 text-emerald-600"
-              : "bg-[#fff2e8] text-[#fa520f]"
+            active ? "bg-emerald-50 text-emerald-600" : "bg-[#fff2e8] text-[#fa520f]"
           }`}
         >
           <Icon size={16} />
