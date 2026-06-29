@@ -26,21 +26,9 @@ if os.path.basename(CURRENT_DIR) == "api":
 else:
     BASE_DIR = CURRENT_DIR
 
-# --- DEBUGGING PRINT (Biar kelihatan di log Hugging Face isi filemu apa saja) ---
-print("====== CEK ISI FOLDER CONTAINER ======")
-print("BASE_DIR:", BASE_DIR)
-try:
-    print("Isi root (/code):", os.listdir(BASE_DIR))
-    if os.path.exists(os.path.join(BASE_DIR, "public")):
-        print("Isi public/ :", os.listdir(os.path.join(BASE_DIR, "public")))
-        if os.path.exists(os.path.join(BASE_DIR, "public", "models")):
-            print("Isi public/models/ :", os.listdir(os.path.join(BASE_DIR, "public", "models")))
-except Exception as e:
-    print("Gagal melacak folder:", e)
-print("======================================")
-
-MODEL_DIR = os.path.join(BASE_DIR, "public", "models", "fashion")
-DATA_DIR = os.path.join(BASE_DIR, "public", "data")
+# Langsung menembak folder utama di Hugging Face root
+MODEL_DIR = os.path.join(BASE_DIR, "models", "fashion")
+DATA_DIR = os.path.join(BASE_DIR, "data")
 UPLOAD_DIR = "/tmp/uploads"
 CHART_DIR = "/tmp/charts"
 
@@ -57,20 +45,9 @@ SCALER_PATH = os.path.join(MODEL_DIR, "scaler_forecasting.pkl")
 FORECAST_CONFIG_PATH = os.path.join(MODEL_DIR, "forecast_config.json")
 TREND_DATA_PATH = os.path.join(DATA_DIR, "data_tren_produk.csv")
 
-# Load Model & Metadata
-print("⏳ Memuat model Klasifikasi & Forecasting...")
-
-# Tambahkan proteksi cek file sebelum load
-if not os.path.exists(IMAGE_MODEL_PATH):
-    print(f"❌ ERROR KRITIKAL: File tidak ada di path: {IMAGE_MODEL_PATH}")
-    print(f"Coba cek isi folder fashion kamu, apakah kosong?")
-    if os.path.exists(MODEL_DIR):
-        print("Isi folder fashion saat ini:", os.listdir(MODEL_DIR))
-
-image_model = load_model(IMAGE_MODEL_PATH)
-forecast_model = load_model(FORECAST_MODEL_PATH)
-
-# Load Model & Metadata
+# =========================
+# LOAD MODEL & METADATA
+# =========================
 print("⏳ Memuat model Klasifikasi & Forecasting...")
 image_model = load_model(IMAGE_MODEL_PATH)
 forecast_model = load_model(FORECAST_MODEL_PATH)
@@ -184,7 +161,6 @@ def create_trend_chart(series_df, chart_title):
     plt.savefig(chart_path)
     plt.close()
 
-    # Menggunakan URL absolut mengarah ke space Hugging Face kamu
     return f"https://entiei-fashion-trend-backend.hf.space/api/charts/{chart_filename}"
 
 @app.route("/api/predict", methods=["POST"])
