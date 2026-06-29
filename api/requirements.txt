@@ -1,8 +1,8 @@
 flask
 flask-cors
-tensorflow-cpu
-pillow
+numpy<2.0.0
 pandas
-numpy
 matplotlib
-werkzeug
+pillow
+scikit-learn
+tensorflow==2.15.0
