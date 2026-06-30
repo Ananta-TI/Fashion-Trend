@@ -10,7 +10,7 @@ export async function predictFashion({ imageFile }) {
   formData.append("file", imageFile); // API Flask menerima key 'file'
 
   // KODE FINAL: Menyimpan hasil fetch ke dalam variabel 'response' dengan URL Hugging Face
-  const response = await fetch("https://entiei-fashion-trend-backend.hf.space/api/predict", {
+  const response = await fetch("/api/predict", {
     method: "POST",
     body: formData,
   });
