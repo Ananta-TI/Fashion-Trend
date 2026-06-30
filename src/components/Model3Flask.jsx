@@ -29,9 +29,8 @@ export default function Model3Flask() {
     formData.append("file", selectedImage); 
 
     try {
-      // === KITA TEMBAK KE SERVER BACKEND PYTHON ASLI DI RENDER ===
-      // Ganti URL ini setelah backend Render-mu selesai dibuat
-const response = await fetch("https://entiei-fashion-trend-backend.hf.space/api/predict", {
+      // === TEMBAK LANGSUNG KE HUGGING FACE DARI BROWSER (BYPASS VERCEL) ===
+      const response = await fetch("https://entiei-fashion-trend-backend.hf.space/api/predict", {
         method: "POST",
         body: formData,
       });
@@ -48,7 +47,7 @@ const response = await fetch("https://entiei-fashion-trend-backend.hf.space/api/
         trendLabel: data.trend_label, 
         trendConfidence: data.trend_confidence,
         forecastCategory: data.forecast_category,
-        chartUrl: data.chart_url.replace("http://localhost:8000", "https://fashion-trend-backend.onrender.com")
+        chartUrl: data.chart_url // Bersih, tidak ada lagi replace render
       });
     } catch (err) {
       console.error(err);
@@ -71,14 +70,14 @@ const response = await fetch("https://entiei-fashion-trend-backend.hf.space/api/
             Arsitektur Model 3
           </h1>
           <p className="mt-4 max-w-2xl leading-7 text-[#4a4a4a]">
-            Memproses gambar di sisi server menggunakan Python Flask asli. Menghitung data tren historis dari CSV secara berkala.
+            Memproses gambar di sisi server menggunakan Python Flask. Menghitung data tren historis secara real-time.
           </p>
         </div>
 
         <div className="rounded-xl border border-[#e6d5a8] bg-white p-5">
           <div className="flex items-center justify-between">
             <span className="text-sm text-[#6a6a6a]">Model Status</span>
-            <span className="text-emerald-600 font-medium">Online (Render Cloud)</span>
+            <span className="text-emerald-600 font-medium">Online (Hugging Face)</span>
           </div>
           <div className="mt-3 flex items-center justify-between">
             <span className="text-sm text-[#6a6a6a]">Environment</span>
