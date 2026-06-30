@@ -1,7 +1,11 @@
 {
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/api/:path*",
+      "destination": "https://entiei-fashion-trend-backend.hf.space/api/:path*"
+    },
+    {
+      "source": "/((?!api).*)" ,
       "destination": "/index.html"
     }
   ]
