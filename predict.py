@@ -11,20 +11,49 @@ from PIL import Image
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
+
+import tensorflow as tf
 from tensorflow.keras.models import load_model
+
+# ===================================================================
+# TRIK ANTI-CRASH: Hapus parameter quantization_config secara dinamis
+# ===================================================================
+@tf.keras.utils.register_keras_serializable(package="Custom")
+class SafeDense(tf.keras.layers.Dense):
+    @classmethod
+    def from_config(cls, config):
+        # Buang argumen penyebab crash jika terbaca dari .h5 lama
+        config.pop('quantization_config', None)
+        return super().from_config(config)
 
 app = Flask(__name__)
 CORS(app) # Wajib agar React bisa mengakses API ini
 
-# =========================
-# KONFIGURASI FOLDER
-# =========================
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# ==========================================
+# KONFIGURASI FOLDER ADAPTIF (LOKAL & HUGGINGFACE)
+# ==========================================
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 
-MODEL_DIR = os.path.join(BASE_DIR, "public", "models", "fashion")
-DATA_DIR = os.path.join(BASE_DIR, "public", "data")
-UPLOAD_DIR = os.path.join(BASE_DIR, "public", "uploads")
-CHART_DIR = os.path.join(BASE_DIR, "public", "charts")
+# Cek apakah aplikasi berjalan di dalam folder 'api' atau root
+if os.path.basename(CURRENT_DIR) == "api":
+    BASE_DIR = os.path.dirname(CURRENT_DIR)
+else:
+    BASE_DIR = CURRENT_DIR
+
+# Deteksi otomatis apakah folder 'public' ada (Berarti berjalan di Lokal)
+if os.path.exists(os.path.join(BASE_DIR, "public")):
+    MODEL_DIR = os.path.join(BASE_DIR, "public", "models", "fashion")
+    DATA_DIR = os.path.join(BASE_DIR, "public", "data")
+    UPLOAD_DIR = os.path.join(BASE_DIR, "public", "uploads")
+    CHART_DIR = os.path.join(BASE_DIR, "public", "charts")
+    IS_LOCAL = True
+else:
+    # Pengaturan untuk server Hugging Face (Docker Container)
+    MODEL_DIR = os.path.join(BASE_DIR, "models", "fashion")
+    DATA_DIR = os.path.join(BASE_DIR, "data")
+    UPLOAD_DIR = "/tmp/uploads"
+    CHART_DIR = "/tmp/charts"
+    IS_LOCAL = False
 
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 os.makedirs(CHART_DIR, exist_ok=True)
@@ -39,12 +68,14 @@ SCALER_PATH = os.path.join(MODEL_DIR, "scaler_forecasting.pkl")
 FORECAST_CONFIG_PATH = os.path.join(MODEL_DIR, "forecast_config.json")
 TREND_DATA_PATH = os.path.join(DATA_DIR, "data_tren_produk.csv")
 
-# =========================
-# LOAD MODEL & METADATA
-# =========================
+# =============================================================
+# LOAD MODEL & METADATA (Menggunakan Custom Object SafeDense)
+# =============================================================
 print("⏳ Memuat model Klasifikasi & Forecasting...")
-image_model = load_model(IMAGE_MODEL_PATH)
-forecast_model = load_model(FORECAST_MODEL_PATH)
+custom_objects = {"Dense": SafeDense}
+
+image_model = load_model(IMAGE_MODEL_PATH, custom_objects=custom_objects, compile=False)
+forecast_model = load_model(FORECAST_MODEL_PATH, custom_objects=custom_objects, compile=False)
 
 with open(CLASS_INDICES_PATH, "r") as f:
     class_indices = json.load(f)
@@ -129,7 +160,6 @@ def find_forecast_category(predicted_class):
         for cat in available_categories:
             if any(k in normalize_text(cat) for k in ["shoe", "sneaker", "footwear"]):
                 return cat
-
     return None
 
 def get_series_by_category(category_name):
@@ -145,7 +175,6 @@ def get_series_by_category(category_name):
     else:
         temp = temp.groupby("Date")["Quantity"].sum().reset_index()
         temp["Category"] = category_name
-
     return temp
 
 def create_trend_chart(series_df, chart_title):
@@ -166,11 +195,26 @@ def create_trend_chart(series_df, chart_title):
     plt.savefig(chart_path)
     plt.close()
 
-    return f"http://localhost:8000/api/charts/{chart_filename}"
+    # URL Grafik adaptif berdasarkan lokasi environment running
+    if IS_LOCAL:
+        return f"http://localhost:8000/api/charts/{chart_filename}"
+    else:
+        return f"https://entiei-fashion-trend-backend.hf.space/api/charts/{chart_filename}"
 
 # =========================
 # ROUTES API
 # =========================
+@app.route("/", methods=["GET"])
+def home():
+    return jsonify({
+        "status": "Running",
+        "environment": "Lokal" if IS_LOCAL else "Hugging Face Production",
+        "endpoints": {
+            "predict": "/api/predict (POST)",
+            "charts": "/api/charts/<filename> (GET)"
+        }
+    }), 200
+
 @app.route("/api/predict", methods=["POST"])
 def predict():
     if "file" not in request.files:
@@ -185,14 +229,12 @@ def predict():
     image_path = os.path.join(UPLOAD_DIR, unique_filename)
     file.save(image_path)
 
-    # 1. KLASIFIKASI CITRA
     processed_img = preprocess_image(image_path)
     pred_prob = image_model.predict(processed_img)[0]
     pred_index = int(np.argmax(pred_prob))
     image_confidence = float(pred_prob[pred_index])
     predicted_class = idx_to_class[pred_index]
 
-    # 2. FORECASTING TREN
     forecast_category = find_forecast_category(predicted_class)
     used_category = forecast_category if forecast_category else "Semua Produk"
     series_df = get_series_by_category(forecast_category)
@@ -210,7 +252,6 @@ def predict():
         trend_confidence = float(trend_prob[trend_index])
         trend_label = reverse_label_mapping[trend_index]
 
-    # 3. BUAT GRAFIK
     chart_url = create_trend_chart(series_df, f"Tren Historis: {used_category}")
 
     return jsonify({
@@ -222,10 +263,13 @@ def predict():
         "chart_url": chart_url
     })
 
-# Route untuk menyajikan gambar grafik ke React
 @app.route('/api/charts/<filename>')
 def serve_chart(filename):
     return send_from_directory(CHART_DIR, filename)
 
 if __name__ == "__main__":
-    app.run(port=8000, debug=True, use_reloader=False)
+    # Menentukan port adaptif berdasarkan deteksi environment lokal/server
+    if IS_LOCAL:
+        app.run(host="127.0.0.1", port=8000, debug=True, use_reloader=False)
+    else:
+        app.run(host="0.0.0.0", port=7860, debug=True)
