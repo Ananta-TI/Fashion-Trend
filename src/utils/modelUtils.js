@@ -7,10 +7,11 @@ export async function predictFashion({ imageFile }) {
   if (!imageFile) throw new Error("File gambar tidak ditemukan.");
 
   const formData = new FormData();
-  formData.append("file", imageFile); // API Flask sekarang menerima key 'file'
+  formData.append("file", imageFile); // API Flask menerima key 'file'
 
-fetch("https://entiei-fashion-trend-backend.hf.space/api/predict", {
-      method: "POST",
+  // KODE FINAL: Menyimpan hasil fetch ke dalam variabel 'response' dengan URL Hugging Face
+  const response = await fetch("https://entiei-fashion-trend-backend.hf.space/api/predict", {
+    method: "POST",
     body: formData,
   });
 
@@ -21,13 +22,13 @@ fetch("https://entiei-fashion-trend-backend.hf.space/api/predict", {
 
   const data = await response.json();
   
-  // Mengembalikan data mentah dari Flask untuk ditampilkan di komponen ResultCard kamu
+  // Mengembalikan data mentah dari Flask untuk ditampilkan di komponen ResultCard
   return {
     kategori: data.kategori,
     confidence: data.confidence,
     trendLabel: data.trend_label, 
     trendConfidence: data.trend_confidence,
     forecastCategory: data.forecast_category,
-    chartUrl: data.chart_url // URL grafik matplotlib dari Python
+    chartUrl: data.chart_url // URL grafik matplotlib dari Python Hugging Face
   };
 }
